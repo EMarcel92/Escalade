@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
+
+//    todo : Logs avec Apache ?
+//    import org.apache.log4j.Logger;
+//    private static Logger logger = Logger.getLogger(Main.class);
+
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
 
     @Value("${messages.home:default-value}")
