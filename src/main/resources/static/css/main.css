@@ -1,2 +1,34 @@
-h1 {color: #78ab46; }
-h2 {color: #2189ce }
+/*H1 {color: #9a15b9; }*/
+/*H2 {color: #ce3556; }*/
+.monTitre {
+    color: green;
+}
+
+/* card-columns permet d'avoir un nb de colonnes déterminé en fonction de la largeur d'écran dans les pavages "fluides" */
+@media (min-width: 576px) {
+    .card-columns {
+        column-count: 1;
+    }
+    h1{
+        color:red;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-columns {
+        column-count: 2;
+    }
+    h1{
+        color:green;
+    }
+}
+
+
+@media (min-width: 992px) {
+    .card-columns {
+        column-count: 5;
+    }
+    h1{
+        color:blue;
+    }
+}
