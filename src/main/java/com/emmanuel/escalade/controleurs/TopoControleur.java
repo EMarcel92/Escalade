@@ -26,13 +26,19 @@ public class TopoControleur {
         topos.add(new Topo("Site facile", "Bli  bli blibli blibli bli", 4 , 6 ));
     }
 
-    @RequestMapping(value = { "/", "/listetopos" }, method = RequestMethod.GET)
-    public String index(Model model) {
+    @RequestMapping(value = {"/listetopos" }, method = RequestMethod.GET)
+    public String listeTopos(Model model) {
         log.info("TopoControleur");
 //        Topo topo = new Topo();
         model.addAttribute("topos", topos);
 
         return "listetopos";
+    }
+
+    @RequestMapping(value = {"/topo" }, method = RequestMethod.GET)
+    public String listeSites(Model model) {
+
+        return "topo";
     }
 
 
