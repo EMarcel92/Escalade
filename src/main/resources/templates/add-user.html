@@ -14,10 +14,19 @@
 
 <body>
 <header th:insert="generique.html :: nav"></header>
-<H1 class="monTitre">Page de LOGIN</H1>
+<H1 class="monTitre">Page de LOGIN USER (add-user.html)</H1>
 
 <div class="container">
 
+    <form action="#" th:action="@{/adduser}" th:object="${user}" method="post">
+        <label for="name">Name</label>
+        <input type="text" th:field="*{name}" id="name" placeholder="Name">
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        <label for="email">Email</label>
+        <input type="text" th:field="*{email}" id="email" placeholder="Email">
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <input type="submit" value="Add User">
+    </form>
 
 </div>
 

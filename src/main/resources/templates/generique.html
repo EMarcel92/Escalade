@@ -13,8 +13,8 @@
     <nav th:fragment="nav" class="navbar navbar-expand-md navbar-light bg-light">
         <!--navbar-expand-lg = étend la navbar sur ecran medium, *navbar-light = police gris clair, bg-light= fond gris clair-->
         <a class="navbar-brand" href="index">    <!-- navbar-brand pour le logo/titre de la barre de navigation-->
-            <img src="../static/img/montagne-sm.png" width="60" height="35" class="d-inline-block align-top" alt="">
-            <strong>Les Amis de l'Escalade...</strong>
+            <img src="../static/img/montagne-sm.png" th:src="@{/img/montagne-sm.png}"  width="60" height="35" class="d-inline-block align-top" alt="Logo Escalade">
+            <strong>Les Amis de l'Escalade</strong>
         </a>
         <!--Balise button : bouton qui permet de basculer sur la balise ciblée par data-target  -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -37,8 +37,8 @@
                         <i class="far fa-images"></i> Sites
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuSite">
-                        <a class="dropdown-item" href="listesites">Consulter</a>
-                        <a class="dropdown-item" href="site">Ajouter</a>
+                        <a class="dropdown-item" href="/listesites">Consulter</a>
+                        <a class="dropdown-item" href="/site">Ajouter</a>
                     </div>
                 </li>
 
@@ -49,7 +49,7 @@
                         <i class="far fa-images"></i> Topos
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuTopo">
-                        <a class="dropdown-item" href="/listetopos/mes">Mes Topos</a>
+                        <a class="dropdown-item" href="/listetopos/utilisateur">Mes Topos</a>
                         <a class="dropdown-item" href="/listetopos">Tous les Topos</a>
                         <a class="dropdown-item" href="/ajoutertopo">Ajouter un Topo</a>
                     </div>
@@ -61,18 +61,12 @@
             </ul>
             <ul class="navbar-nav ml-auto">     <!--ml-auto = margin-left:auto qui cale une marge max à gauche-->
                 <li class="nav-item">
-                    <a class="nav-link" href="login"><i class="fa fa-spin fa-user"></i> S'identifier</a>
+                    <a class="nav-link" href="/signup"><i class="fa fa-spin fa-user"></i> S'identifier</a>
                 </li>
             </ul>
         </div>
     </nav>
 </header>
-
-
-
-
-
-
 
 
 

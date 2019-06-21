@@ -14,37 +14,69 @@
 
 <body>
 <header th:insert="generique.html :: nav"></header>
-<H1 class="monTitre">Page de gestion des TOPOS</H1>
+<H1 class="monTitre">Page d'ERREUR</H1>
 
 <div class="container">
+    <p>début de paragraphe</p>
+    <!--<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">-->
+        <!--<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>-->
+    <!--</div>-->
+    <!---->
 
-    <form action="#" th:action="@{/ajoutertopo}" th:object="${topo}" method="post">
-        <label for="nomTopo">Name1</label>
-        <input type="text" th:field="** {nomTopo}" id="nomTopo" placeholder="nomTopo">
-        <span th:if="${#fields.hasErrors('topo')}" th:errors="** {topo}"></span>
-        <label for="descritpionTopo">Description</label>
-        <input type="text" th:field="** {descritpionTopo}" id="descritpionTopo" placeholder="descritpionTopo">
-        <span th:if="${#fields.hasErrors('descritpionTopo')}" th:errors="** {descritpionTopo}"></span>
-        <label for="dateParution">Date parution</label>
-        <input type="text" th:field="** {dateParution}" id="dateParution" placeholder="dateParution">
-        <span th:if="${#fields.hasErrors('descritpionTopo')}" th:errors="** {descritpionTopo}"></span>
-        <label for="disponible">Disponibilité</label>
-        <input type="text" th:field="** {descritpionTopo}" id="disponible" placeholder="disponible">
-        <span th:if="${#fields.hasErrors('disponible')}" th:errors="** {disponible}"></span>
-
-        <input type="submit" value="Ajouter topo">
+    <h1 th:text="${errorCode}"></h1>
+    <p th:utext="${errorMessage}"></p>
+    Current time is <span th:text="${serverTime}" />
 
 
+    <h2 th:text="${status + ' ' + error}"></h2>
+    <!--<ul>-->
+        <!--<li th:each="err : ${#fields.errors('*')}" th:utext="${err}" />-->
+    <!--</ul>-->
 
+    <!--<ul>-->
+        <!--<li th:errors="*{id}">aa</li>-->
+        <!--<li th:errors="*{name}">bb</li>-->
+    <!--</ul>-->
 
-    </form>
+    <table>
+        <tr>
+            <td>Date</td>
+            <td th:text="${timestamp}"/>
+        </tr>
+        <tr>
+            <td>Path</td>
+            <td th:text="${path}"/>
+        </tr>
+        <tr>
+            <td>Error</td>
+            <td th:text="${error}"/>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td th:text="${status}"/>
+        </tr>
+        <tr>
+            <td>Message</td>
+            <td th:text="${message}"/>
+        </tr>
+        <tr>
+            <td>Exception</td>
+            <td th:text="${exception}"/>
+        </tr>
+        <tr>
+            <td>Trace</td>
+            <td>
+                <pre th:text="${trace}"/>
+            </td>
+        </tr>
+    </table>
 
-
-
+    <a href="/" th:href="@{/signup}">Retour à la page d'authentification</a>
+    <p>Fin de paragraphe</p>
 
 </div>
 
-<hr>
+<hr />
 
 <footer th:insert="generique.html :: footer"></footer>
 
@@ -52,8 +84,6 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
 
 </body>
 </html>
