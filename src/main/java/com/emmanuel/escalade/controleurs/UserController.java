@@ -1,12 +1,13 @@
 package com.emmanuel.escalade.controleurs;
 
 import com.emmanuel.escalade.DAO.UserRepository;
-import com.emmanuel.escalade.model.User;
+import com.emmanuel.escalade.model.MesUsers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -22,54 +23,49 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-
     @GetMapping("/list")
-    public String maListe(BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "add-user";
-        }
+    public String maListe(Model model)  {
         model.addAttribute("users", userRepository.findAll());
         return "list_users";
     }
 
-
     @GetMapping("/signup")
-    public String showSignUpForm(User user) {
+    public String showSignUpForm(MesUsers mesUsers) {
         return "add-user";
     }
 
     @PostMapping("/adduser")
-    public String addUser(@Valid User user, BindingResult result, Model model) {
+    public String addUser(@Valid @ModelAttribute("mesUsers") MesUsers mesUsers, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "add-user";
         }
-        userRepository.save(user);
+        userRepository.save(mesUsers);
         model.addAttribute("users", userRepository.findAll());
         return "list_users";
     }
 
     @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        model.addAttribute("user", user);
-        return "update-user";
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+        MesUsers mesUsers = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Identifiant de mesUsers invalide : " + id));
+        model.addAttribute("mesusers", mesUsers);
+        return "update-mesusers";
     }
 
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id, @Valid User user, BindingResult result, Model model) {
+    public String updateUser(@PathVariable("id") Integer id, @Valid MesUsers mesUsers, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            user.setId(id);
-            return "update-user";
+            mesUsers.setId(id);
+            return "update-mesusers";
         }
-        userRepository.save(user);
+        userRepository.save(mesUsers);
         model.addAttribute("users", userRepository.findAll());
         return "list_users";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        userRepository.delete(user);
+    public String deleteUser(@PathVariable("id") Integer id, Model model) {
+        MesUsers mesUsers = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid mesUsers Id:" + id));
+        userRepository.delete(mesUsers);
         model.addAttribute("users", userRepository.findAll());
         return "list_users";
     }

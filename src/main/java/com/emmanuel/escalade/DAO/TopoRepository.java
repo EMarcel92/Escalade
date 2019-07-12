@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TopoRepository extends CrudRepository<Topo, Long> {
+public interface TopoRepository extends CrudRepository<Topo, Integer> {  //objet Topo avec une clé Integer
 }

@@ -1,29 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Topo</title>
-    <meta name="description" content="Site officiel des Amis de l'Escalade">
-    <meta name="keywords" content="escalade, topo, grimpeur">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-</head>
+<head th:replace="generique :: head"></head>
 
 <body>
-<header th:replace="generique.html :: nav"></header>
-<H1 class="monTitre">Page de gestion des TOPOS</H1>
+<header th:replace="generique :: nav"></header>
 
 <div class="container">
-
-    <form action="#" th:action="@{/ajoutertopo}" th:object="${topo}" method="post">
+    <H1 class="monTitre">Mettre à jour un topo. </H1>
+    <form action="#" th:action="@{/sauvertopo/{id}(id=${topo.topoid})}" th:object="${topo}" method="post">
         <label for="nomTopo">Nom</label>
-        <input type="text" th:field="*{nomTopo}" id="nomTopo" placeholder="nomTopo">
+        <input type="text" th:field="*{nomTopo}" id="nomTopo" placeholder="nomTopo" th:value="*{descritpionTopo}">
         <!--<span th:if="${#fields.hasErrors('nomtopo')}" th:errors="*{nomTopo }"></span>-->
         <label for="descritpionTopo">Description</label>
-        <input type="text" th:field="*{descritpionTopo}" id="descritpionTopo" placeholder="descritpionTopo">
+        <input type="text" th:field="*{descritpionTopo}" id="descritpionTopo" placeholder="descritpionTopo"  th:value='coucou'>
         <!--<span th:if="${#fields.hasErrors('descritpionTopo')}" th:errors="*{descritpionTopo}"></span>-->
         <label for="dateParution">Date parution</label>
         <input type="date" th:field="*{dateParution}" id="dateParution" placeholder="dateParution">
@@ -31,19 +20,21 @@
         <label for="disponible">Disponibilité</label>
         <input type="checkbox" th:field="*{disponible}" id="disponible" placeholder="disponible">
 
-        <input type="submit" value="Ajouter topo">
+        <label for="region">Région</label>
+        <input type="text" th:field="*{region}" id="region" placeholder="région" th:value="*{region.regionId}">
+        <label for="utilisateur">Région</label>
+        <input type="text" th:field="*{utilisateur}" id="utilisateur" placeholder="menbre" th:value="*{utilisateur.pseudo}">
 
+        <input type="submit" value="Valider">
     </form>
 
 </div>
-
-<hr>
+<br/>
 
 <footer th:replace="generique :: footer"></footer>
 
 <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js/"></script>
 <script type="text/javascript" src="/webjars/popper.js/1.14.3/popper.min.js"></script>
 <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 </body>
 </html>

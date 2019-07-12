@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -32,44 +29,52 @@ public class TopoControleur {
         this.topoRepository = topoRepository;
     }
 
+    @GetMapping("/listetopos")
+    public String listeTopos(Model model) {
+        log.info("TopoControleur");
+        model.addAttribute("topos", topoRepository.findAll());
+        return "listetopos";
+    }
+
+    @GetMapping("/test/{id}")
+    public String test(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("topo", topoRepository.findById(id));
+        //        model.addAttribute("topo", topo);
+        return "test";
+    }
+
+
+    @GetMapping("/majtopo/{id}")
+    public String MAJTopo(@PathVariable("id") Integer id, Model model) {
+        Topo topo= topoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Identifiant topo inconnu : " + id));
+        model.addAttribute("topo", topo);
+        return "majtopo";
+    }
+
+    @PostMapping("/sauvertopo/{id}")
+    public String sauverTopo(@PathVariable("id") Integer id, @Valid Topo topo, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            topo.setTopoid(id);
+            return "majtopo";
+        }
+        topoRepository.save(topo);
+        model.addAttribute("topos", topoRepository.findAll());
+        return "listetopos";
+    }
+
     @GetMapping("/topo")
     public String afficherTopo (Topo topo) {
-
         return "topo";
     }
 
     @PostMapping("/ajoutertopo")
-    public String ajouterTopo (@Valid Topo topo, BindingResult result, Model model) {
+    public String ajouterTopo (@Valid @ModelAttribute("topo") Topo topo, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "topo";
         }
         topoRepository.save(topo);
-        model.addAttribute("users", topoRepository.findAll());
+        model.addAttribute("topos", topoRepository.findAll());
         return "listetopos";
     }
-
-//    Création d'objet topos à la volée
-//    static {
-//        topos.add(new Topo("Site difficile", "Bla bla bla", 3 , 8 ));
-//        topos.add(new Topo("Site facile", "Bli  bli blibli blibli bli", 4 , 6 ));
-//    }
-
-    /*
-    @RequestMapping(value = {"/listetopos" }, method = RequestMethod.GET)
-    public String listeTopos(Model model) {
-        log.info("TopoControleur");
-//        Topo topo = new Topo();
-        model.addAttribute("topos", topos);
-
-        return "listetopos";
-    }
-
-    @RequestMapping(value = {"/topo" }, method = RequestMethod.GET)
-    public String listeSites(Model model) {
-
-        return "topo";
-    }
-    */
-
 
 }

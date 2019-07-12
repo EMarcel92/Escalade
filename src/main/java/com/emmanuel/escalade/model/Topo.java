@@ -1,44 +1,40 @@
 package com.emmanuel.escalade.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "topo")
 public class Topo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int topoid;
+    private Integer topoid;
     private String nomTopo;
-    private String descritpionTopo;
+    private String descriptionTopo;
     private Date dateParution;
     private boolean disponible;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name="regionid", nullable=false)
     private Region region;
-//    @ManyToOne
-//    @JoinColumn
-//    private int utilisaeurId;
+    @ManyToOne
+    @JoinColumn(name="utilisateurid", nullable=false)  //la clé du parent est utilisateurid dans la table enfant
+    private Utilisateur utilisateur;   //L'objet Utilisateur est le parent de topo
 
     public Topo() {
     }
 
-    public Topo(String nomTopo, String descritpionTopo, Date dateParution, boolean disponible, int regionId, int utilisaeurId) {
+    public Topo(String nomTopo, String descriptionTopo, Date dateParution, boolean disponible, Region region, Utilisateur utilisateur) {
         this.nomTopo = nomTopo;
-        this.descritpionTopo = descritpionTopo;
+        this.descriptionTopo = descriptionTopo;
         this.dateParution = dateParution;
         this.disponible = disponible;
-    //    this.regionId = regionId;
-  //      this.utilisaeurId = utilisaeurId;
+        this.region = region;
+        this.utilisateur = utilisateur;
     }
 
-    public int getTopoid() {
-        return topoid;
-    }
+    public Integer getTopoid() {  return topoid;    }
 
-    public void setTopoid(int topoid) {
-        this.topoid = topoid;
-    }
+    public void setTopoid(Integer topoid) { this.topoid = topoid; }
 
     public String getNomTopo() {
         return nomTopo;
@@ -49,11 +45,11 @@ public class Topo {
     }
 
     public String getDescritpionTopo() {
-        return descritpionTopo;
+        return descriptionTopo;
     }
 
     public void setDescritpionTopo(String descritpionTopo) {
-        this.descritpionTopo = descritpionTopo;
+        this.descriptionTopo = descritpionTopo;
     }
 
     public Date getDateParution() {
@@ -72,32 +68,19 @@ public class Topo {
         this.disponible = disponible;
     }
 
-//    public int getRegionId() {
-//        return regionId;
-//    }
-//
-//    public void setRegionId(int regionId) {
-//        this.regionId = regionId;
-//    }
+    public Region getRegion() {
+        return region;
+    }
 
-//    public int getUtilisaeurId() {
-//        return utilisaeurId;
-//    }
-//
-//    public void setUtilisaeurId(int utilisaeurId) {
-//        this.utilisaeurId = utilisaeurId;
-//    }
+    public void setRegion(Region region) {
+        this.region = region;
+    }
 
-    @Override
-    public String toString() {
-        return "Topo{" +
-                "topoid=" + topoid +
-                ", nomTopo='" + nomTopo + '\'' +
-                ", descritpionTopo='" + descritpionTopo + '\'' +
-                ", dateParution=" + dateParution +
-                ", disponible=" + disponible +
-  //              ", regionId=" + regionId +
-  //              ", utilisaeurId=" + utilisaeurId +
-                '}';
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 }

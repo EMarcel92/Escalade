@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="fr">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Page générique</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/css/main.css">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title>Escalade</title>
+    <meta name="description" content="Site officiel des Amis de l'Escalade">
+    <meta name="keywords" content="escalade, topo, grimpeur">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 </head>
+<!-- Bootstrap CSS - A mettre en premier -->
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>-->
+<!--<link rel="stylesheet" href="../static/css/main.css">-->
 
 <body>
 <header >
     <nav th:fragment="nav" class="navbar navbar-expand-md navbar-light bg-light">
         <!--navbar-expand-lg = étend la navbar sur ecran medium, *navbar-light = police gris clair, bg-light= fond gris clair-->
-        <a class="navbar-brand" href="index">    <!-- navbar-brand pour le logo/titre de la barre de navigation-->
+        <a class="navbar-brand" href="/test/1">    <!-- navbar-brand pour le logo/titre de la barre de navigation-->
             <img src="../static/img/montagne-sm.png" th:src="@{/img/montagne-sm.png}"  width="60" height="35" class="d-inline-block align-top" alt="Logo Escalade">
             <strong>Les Amis de l'Escalade</strong>
         </a>
@@ -24,11 +30,10 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <!--collapse navbar-collapse permet d'avoir un affichage en ligne-->
             <ul class="navbar-nav ">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index"><i class="fas fa-home"></i> Accueil</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/index"><i class="fas fa-home"></i> Accueil</a>
                     <!-- fas pour FontAwesome Solide (dessin plein, les autres sont payants) -->
                 </li>
-
 
 
                 <li class="nav-item dropdown">
@@ -51,7 +56,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuTopo">
                         <a class="dropdown-item" href="/listetopos/utilisateur">Mes Topos</a>
                         <a class="dropdown-item" href="/listetopos">Tous les Topos</a>
-                        <a class="dropdown-item" href="/ajoutertopo">Ajouter un Topo</a>
+                        <a class="dropdown-item" href="/topo">Ajouter un Topo</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -61,9 +66,10 @@
             </ul>
             <ul class="navbar-nav ml-auto">     <!--ml-auto = margin-left:auto qui cale une marge max à gauche-->
                 <li class="nav-item">
-                    <a class="nav-link" href="/signup"><i class="fa fa-spin fa-user"></i> S'identifier</a>
+                    <a class="nav-link" href="/signup"><i class="fas fa-user-check"></i> S'identifier</a>
                 </li>
             </ul>
+
         </div>
     </nav>
 </header>
@@ -75,9 +81,13 @@
 </footer>
 
 <!-- Respecter l'ordre des scripts ; jQuery first, then Popper.js, then Bootstrap JS, puis notre propre script.js -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+<script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js/"></script>
+<script type="text/javascript" src="/webjars/popper.js/1.14.3/popper.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+-->
 </body>
 </html>

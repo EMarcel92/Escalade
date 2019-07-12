@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<header th:insert="generique.html :: nav"></header>
+<header th:replace="generique.html :: nav"></header>
 <H1 class="monTitre">Page de LOGIN</H1>
 
 <div class="container">
@@ -23,9 +23,10 @@
 
 <hr>
 
-<footer th:insert="generique.html :: footer"></footer>
+<footer th:replace="generique.html :: footer"></footer>
 
 <script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js/"></script>
 <script type="text/javascript" src="webjars/popper.js/1.14.3/popper.min.js"></script>
 <script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
+</html>

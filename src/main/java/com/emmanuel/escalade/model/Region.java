@@ -1,9 +1,7 @@
 package com.emmanuel.escalade.model;
 
 import javax.persistence.*;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.List;
 
 @Entity
 @Table(name = "region")
@@ -11,10 +9,11 @@ public class Region {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="regionid")
     private int regionId;
     private String nomRegion;
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
-    private Set<Topo> topos;
+    private List<Topo> topo;
 
     public Region() {
     }
