@@ -21,7 +21,7 @@ public class MesUsers {
     public MesUsers() {
     }
 
-    public MesUsers(@NotBlank(message = "Nom obligatoire") String name, @NotBlank(message = "Email obligatoire") String email) {
+    public MesUsers(@NotBlank(message = "Le nom est obligatoire") String name, @NotBlank(message = "l'email est obligatoire") String email) {
         this.name = name;
         this.email = email;
     }

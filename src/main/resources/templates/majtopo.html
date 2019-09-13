@@ -7,25 +7,37 @@
 
 <div class="container">
     <H1 class="monTitre">Mettre à jour un topo. </H1>
-    <form action="#" th:action="@{/sauvertopo/{id}(id=${topo.topoid})}" th:object="${topo}" method="post">
-        <label for="nomTopo">Nom</label>
-        <input type="text" th:field="*{nomTopo}" id="nomTopo" placeholder="nomTopo" th:value="*{descritpionTopo}">
-        <!--<span th:if="${#fields.hasErrors('nomtopo')}" th:errors="*{nomTopo }"></span>-->
-        <label for="descritpionTopo">Description</label>
-        <input type="text" th:field="*{descritpionTopo}" id="descritpionTopo" placeholder="descritpionTopo"  th:value='coucou'>
-        <!--<span th:if="${#fields.hasErrors('descritpionTopo')}" th:errors="*{descritpionTopo}"></span>-->
-        <label for="dateParution">Date parution</label>
-        <input type="date" th:field="*{dateParution}" id="dateParution" placeholder="dateParution">
-        <!--<span th:if="${#fields.hasErrors('dateParution')}" th:errors="*{dateParution}"></span>-->
-        <label for="disponible">Disponibilité</label>
-        <input type="checkbox" th:field="*{disponible}" id="disponible" placeholder="disponible">
+    <form action="#" th:action="@{/sauvertopo/{id}(id=${topo.topoId})}" th:object="${topo}" method="post">
+        <!--<div class="form-group" >-->
+            <label for="nomTopo">Nom</label>
+            <input type="text" th:field="*{nomTopo}" id="nomTopo" placeholder="nomTopo" th:value="*{descritpionTopo}">
+            <!--<span th:if="${#fields.hasErrors('nomtopo')}" th:errors="*{nomTopo }"></span>-->
+            <label for="descritpionTopo">Description</label>
+            <input type="text" th:field="*{descritpionTopo}" id="descritpionTopo" placeholder="descritpionTopo"  th:value='coucou'>
+            <!--<span th:if="${#fields.hasErrors('descritpionTopo')}" th:errors="*{descritpionTopo}"></span>-->
+            <label for="dateParution">Date parution</label>
+            <input type="date" th:field="*{dateParution}" id="dateParution" placeholder="dateParution">
+            <!--<span th:if="${#fields.hasErrors('dateParution')}" th:errors="*{dateParution}"></span>-->
+            <label for="disponible">Disponibilité</label>
+            <input type="checkbox" th:field="*{disponible}" id="disponible" placeholder="disponible">
+            <label for="region">Région</label>
+            <select th:field="*{region}" id="region">
+                <option th:each="region : ${regions}" th:value="${region.regionId}" th:text="${region.nomRegion}")>Alpes </option>
+            </select>
 
-        <label for="region">Région</label>
-        <input type="text" th:field="*{region}" id="region" placeholder="région" th:value="*{region.regionId}">
-        <label for="utilisateur">Région</label>
-        <input type="text" th:field="*{utilisateur}" id="utilisateur" placeholder="menbre" th:value="*{utilisateur.pseudo}">
+        <!--    <select>
+                <option disabled>Please select...</option>
+                <option value="apple">Apple</option>
+                <option value="banana" th:selected="${mesusers.id==2}")>Banana </option>
+                <option value="orange">Orange</option>
+                <option value="pear">Pear</option>
+            </select>-->
 
-        <input type="submit" value="Valider">
+            <label for="utilisateur">Utilisateur</label>
+            <input type="text" th:field="*{utilisateur}" id="utilisateur" placeholder="menbre" th:value="*{utilisateur.pseudo}">
+
+            <input type="submit" value="Valider">
+       <!-- </div>-->
     </form>
 
 </div>

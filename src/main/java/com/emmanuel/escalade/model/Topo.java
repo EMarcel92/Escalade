@@ -7,8 +7,9 @@ import java.sql.Date;
 @Table(name = "topo")
 public class Topo {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer topoid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="topoid")
+    private Integer topoId;
     private String nomTopo;
     private String descriptionTopo;
     private Date dateParution;
@@ -17,7 +18,7 @@ public class Topo {
     @JoinColumn(name="regionid", nullable=false)
     private Region region;
     @ManyToOne
-    @JoinColumn(name="utilisateurid", nullable=false)  //la clé du parent est utilisateurid dans la table enfant
+    @JoinColumn(name="utilisateurid", nullable=false)  //la clé du parent est utilisateurid dans la table enfant (et pas dans l'entité enfant)
     private Utilisateur utilisateur;   //L'objet Utilisateur est le parent de topo
 
     public Topo() {
@@ -32,9 +33,9 @@ public class Topo {
         this.utilisateur = utilisateur;
     }
 
-    public Integer getTopoid() {  return topoid;    }
+    public Integer getTopoId() {  return topoId;    }
 
-    public void setTopoid(Integer topoid) { this.topoid = topoid; }
+    public void setTopoId(Integer topoId) { this.topoId = topoId; }
 
     public String getNomTopo() {
         return nomTopo;
@@ -80,7 +81,5 @@ public class Topo {
         return utilisateur;
     }
 
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
-    }
+    public void setUtilisateur(Utilisateur utilisateur) {this.utilisateur = utilisateur; }
 }

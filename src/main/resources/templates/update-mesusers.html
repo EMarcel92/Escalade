@@ -10,6 +10,16 @@
 
 <div class="container">
 
+    <select>
+        <option disabled>Please select...</option>
+        <option value="apple">Apple</option>
+        <option value="banana" th:selected="${mesusers.id==2}")>Banana </option>
+        <option value="orange">Orange</option>
+        <option value="pear">Pear</option>
+    </select>
+
+
+
     <form action="#" method="post" th:action="@{/update/{id} (id=${mesusers.id})}" th:object="${mesusers}">
         <label for="name">Name</label>
         <input id="name" placeholder="Name" th:field="*{name}" type="text">

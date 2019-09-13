@@ -23,9 +23,12 @@
                                 <th scope="col">Description</th>
                                 <th scope="col">Parution</th>
                                 <th scope="col">Région</th>
+                                <th scope="col">Membre</th>
                                 <th scope="col">disponible</th>
-                                <th scope="col">Modifier</th>
-                                <th scope="col">Supprimer</th>
+                                <th scope="col"> </th>
+                                <th scope="col"> </th>
+<!--                                <th scope="col">Modifier</th>-->
+<!--                                <th scope="col">Supprimer</th>-->
                             </tr>
                             </thead>
                             <tbody>
@@ -34,17 +37,18 @@
                                 <td th:text="${topo.descritpionTopo}"></td>
                                 <td th:text="${topo.dateParution}"></td>
                                 <td th:text="${topo.region.nomRegion}"></td>
+                                <td th:text="${topo.utilisateur.pseudo}"></td>
                                 <td th:class="${topo.disponible}? 'text-success' : 'text-danger'" th:utext="${topo.disponible}? 'Oui' : 'Non'"></td>
-                                <!--<td><a class="btn btn-primary" th:href="@{/majtopo/{id}(id=${topo.topoid})}"><i class="fas fa-pencil-alt "></i></a></td>-->
-                                <td><a class="btn btn-primary" th:href="@{/majtopo/{id}(id=${topo.topoid})}"><i class="fas fa-pencil-alt "></i></a></td>
-                                <td><a class="btn btn-primary" th:href="@{/supprimertopo/{id}(id=${topo.topoid})}"><i class="far fa-trash-alt"></i></a></td>
+                                <!--<td><a class="btn btn-primary" th:href="@{/majtopo/{id}(id=${topo.topoId})}"><i class="fas fa-pencil-alt "></i></a></td>-->
+                                <td><a class="btn btn-primary" th:href="@{/majtopo/{id}(id=${topo.topoId})}"><i class="fas fa-pencil-alt "></i></a></td>
+                                <td><a class="btn btn-primary" th:href="@{/supprimertopo/{id}(id=${topo.topoId})}"><i class="far fa-trash-alt"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <a class="btn btn-primary" href="/signup" role="button">s'identifier <i class="fas fas fa-user-check ml-2"></i></a>
-                <a class="mx-3 btn btn-primary" href="" role="button">Ajouter Topo <i class="far fa-plus-square ml-2"></i></a>
+                <a class="mx-3 btn btn-primary" href="/formulairetopo" role="button">Ajouter Topo <i class="far fa-plus-square ml-2"></i></a>
             </div>
         </div>
     </div>

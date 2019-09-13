@@ -2,6 +2,7 @@ package com.emmanuel.escalade.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 
@@ -12,23 +13,24 @@ public class Utilisateur {
     @Id   //champ clé primaire
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="utilisateurid")
-    private long id;
+    private Integer id;
     @NotBlank(message = "Pseudo obligatoire")
+    @Size(min = 3, max = 50, message = "Client Name should be greater then 3 Characters Or Less Then 50 Characters")
+    @Column(unique = true)
     private String pseudo;
     private String motDePasse;
     private String nomUtilisateur;
     private String prenomUtilisateur;
     private String profil;
-    @OneToMany(mappedBy="utilisateur")   //utilisateur est l'attribut objet instancié dans Topo
+    @OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL)   //utilisateur est l'attribut objet instancié dans Topo
     private List<Topo> topos;
 
     //standard constructors/setters/getters/toString
 
 
-    public Utilisateur() {
-    }
+    public Utilisateur() {    }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -50,7 +52,7 @@ public class Utilisateur {
 
     public String getProfil() {   return profil; }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -80,6 +82,11 @@ public class Utilisateur {
 
     public void setTopos(List<Topo> topos) {
         this.topos = topos;
+    }
+
+    public void addTopo (Topo t) {
+        t.setUtilisateur(this);
+        topos.add(t) ;
     }
 
     @Override

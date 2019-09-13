@@ -11,21 +11,25 @@ public class Secteur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String nom_secteur;
 
     public Secteur() {
     }
 
-    public Secteur(String nom_secteur, Double price) {
+    public Secteur(String nom_secteur) {
         this.nom_secteur = nom_secteur;
     }
 
-    public Long getId() {
+   /* public Secteur(String nom_secteur, Double price) {
+        this.nom_secteur = nom_secteur;
+    } */
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

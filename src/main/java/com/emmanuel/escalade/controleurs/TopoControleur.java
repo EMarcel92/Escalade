@@ -1,17 +1,19 @@
 package com.emmanuel.escalade.controleurs;
 
+import com.emmanuel.escalade.DAO.RegionRepository;
 import com.emmanuel.escalade.DAO.TopoRepository;
+import com.emmanuel.escalade.DAO.UtilisateurRepository;
 import com.emmanuel.escalade.model.Topo;
+import com.emmanuel.escalade.model.Utilisateur;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +21,18 @@ import java.util.List;
 public class TopoControleur {
 
     private final TopoRepository topoRepository;
+    private final RegionRepository regionRepository;
+    private final UtilisateurRepository utilisateurRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(HomeController.class);
+    private static final Logger log = LoggerFactory.getLogger(TopoControleur.class);
 
-    private static List<Topo> topos = new ArrayList<Topo>();
+   // private static List<Topo> topos = new ArrayList<Topo>();
 
     @Autowired
-    public TopoControleur(TopoRepository topoRepository) {
+    public TopoControleur(TopoRepository topoRepository, RegionRepository regionRepository, UtilisateurRepository utilisateurRepository) {
         this.topoRepository = topoRepository;
+        this.regionRepository = regionRepository;
+        this.utilisateurRepository = utilisateurRepository;
     }
 
     @GetMapping("/listetopos")
@@ -36,17 +42,24 @@ public class TopoControleur {
         return "listetopos";
     }
 
-    @GetMapping("/test/{id}")
-    public String test(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("topo", topoRepository.findById(id));
-        //        model.addAttribute("topo", topo);
-        return "test";
+    @PostMapping("/ajoutertopo")
+    public String ajouterTopo (@Valid @ModelAttribute("topo") Topo topo, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "ajoutertopo";
+        }
+        //todo récupérer l'user connecté et supprimer la ligne suivante
+        Utilisateur utilisateur = utilisateurRepository.findById(2).get();
+        topo.setUtilisateur(utilisateur);
+        utilisateurRepository.save(utilisateur);
+        topoRepository.save(topo);
+        model.addAttribute("topos", topoRepository.findAll());
+        return "redirect:/listetopos";
     }
 
-
     @GetMapping("/majtopo/{id}")
-    public String MAJTopo(@PathVariable("id") Integer id, Model model) {
-        Topo topo= topoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Identifiant topo inconnu : " + id));
+    public String mettreAJourTopo(@PathVariable("id") Integer id, Model model) {
+        Topo topo = topoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Identifiant topo inconnu : " + id));
+        model.addAttribute("regions", regionRepository.findAll());
         model.addAttribute("topo", topo);
         return "majtopo";
     }
@@ -54,12 +67,23 @@ public class TopoControleur {
     @PostMapping("/sauvertopo/{id}")
     public String sauverTopo(@PathVariable("id") Integer id, @Valid Topo topo, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            topo.setTopoid(id);
+            topo.setTopoId(id);
             return "majtopo";
         }
+      //  regionRepository.save(region);
+      //  topoRepository.save(topo);
+       // model.addAttribute("topos", topoRepository.findAll());
+
+
+
+     //   Utilisateur utilisateur = topo.getUtilisateur();
+     //   topo.setUtilisateur(utilisateur);
+     //   utilisateurRepository.save(utilisateur);
+     //   utilisateurRepository.save(topo.getUtilisateur());
+        topo.setTopoId(id);
         topoRepository.save(topo);
         model.addAttribute("topos", topoRepository.findAll());
-        return "listetopos";
+        return "redirect:/listetopos";
     }
 
     @GetMapping("/topo")
@@ -67,14 +91,16 @@ public class TopoControleur {
         return "topo";
     }
 
-    @PostMapping("/ajoutertopo")
-    public String ajouterTopo (@Valid @ModelAttribute("topo") Topo topo, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "topo";
-        }
-        topoRepository.save(topo);
-        model.addAttribute("topos", topoRepository.findAll());
-        return "listetopos";
+    @GetMapping("/formulairetopo")
+    public String afficherFormulaireAjoutTopo(Topo topo,Model model) {
+        model.addAttribute("regions", regionRepository.findAll());
+        return "ajoutertopo";
     }
 
-}
+    //todo test à detruire
+    @GetMapping("/test/{id}")
+    public String test(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("topo", topoRepository.findById(id));
+        //        model.addAttribute("topo", topo);
+        return "test";
+    }}

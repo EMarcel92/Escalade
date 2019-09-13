@@ -13,7 +13,7 @@ public class Region {
     private int regionId;
     private String nomRegion;
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
-    private List<Topo> topo;
+    private List<Topo> topos;
 
     public Region() {
     }
@@ -38,6 +38,19 @@ public class Region {
 
     public void setNomRegion(String nomRegion) {
         this.nomRegion = nomRegion;
+    }
+
+    public List<Topo> getTopo() {
+        return topos;
+    }
+
+    public void setTopos(List<Topo> topos) {
+        this.topos = topos;
+    }
+
+    public void addTopo (Topo t) {
+        t.setRegion(this);
+        topos.add(t) ;
     }
 
     @Override

@@ -7,57 +7,45 @@
 
 <div class="container">
     <H1 class="monTitre">Ajouter un topo</H1>
-    <h2>Tableau lignes bicolores</h2>
-
-    <div th:switch="${topo}" class="container my-3">
-        <div class="row">
-            <div >
-                <h2 th:case="null">Aucun topo !</h2>
-                <div th:case="*">
-                    <h2 class="my-3">Mes Topos</h2>
-                    <div class="table-responsive-md">
-                        <table class="table table-striped ">
-                            <thead>
-                            <tr>
-                                <th scope="col">Topo</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Parution</th>
-                                <th scope="col">Région</th>
-                                <th scope="col">disponible</th>
-                                <th scope="col">Modifier</th>
-                                <th scope="col">Supprimer</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr scope="row" th:each="topo : ${topos}">
-                                <td th:text="${topo.nomTopo}"></td>
-                                <td th:text="${topo.descritpionTopo}"></td>
-                                <td th:text="${topo.dateParution}"></td>
-                                <td th:text="${topo.region.nomRegion}"></td>
-                                <td th:class="${topo.disponible}? 'text-success' : 'text-danger'" th:utext="${topo.disponible}? 'Oui' : 'Non'"></td>
-                                <td><a th:href="@{/edit/{id}(id=${topo.topoid})}" class="btn btn-primary"><i class="fas fa-pencil-alt "></i></a></td>
-                                <td><a th:href="@{/delete/{id}(id=${topo.topoid})}" class="btn btn-primary"><i class="far fa-trash-alt"></i></a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <a class="btn btn-primary" href="/signup" role="button">s'identifier <i class="fas fas fa-user-check ml-2"></i></a>
-                <a class="mx-3 btn btn-primary" href="" role="button">Ajouter Topo <i class="far fa-plus-square ml-2"></i></a>
-            </div>
-        </div>
-    </div>
+        <form action="#" th:action="@{/ajoutertopo}" th:object="${topo}" method="post">
+            <form:errors path = "*" cssClass = "errorblock" element = "div" />
+            <label for="nomTopo">Nom</label>
+            <input type="text" th:field="*{nomTopo}" id="nomTopo" placeholder="nomTopo">
+            <!--<span th:if="${#fields.hasErrors('nomtopo')}" th:errors="*{nomTopo }"></span>-->
+            <label for="descritpionTopo">Description</label>
+            <input type="text" th:field="*{descritpionTopo}" id="descritpionTopo" placeholder="descritpionTopo">
+            <!--<span th:if="${#fields.hasErrors('descritpionTopo')}" th:errors="*{descritpionTopo}"></span>-->
+            <label for="dateParution">Date parution</label>
+            <input type="date" th:field="*{dateParution}" id="dateParution" placeholder="dateParution">
+            <!--<span th:if="${#fields.hasErrors('dateParution')}" th:errors="*{dateParution}"></span>-->
+            <label for="disponible">Disponibilité</label>
+            <input type="checkbox" th:field="*{disponible}" id="disponible" placeholder="disponible">
 
 
-    <div th:each ="topo : ${topos}">
-        <H4 th:utext="'nom : ' + ${topo.nomTopo}">...</H4>
-        <H5 th:utext="${topo.descritpionTopo}">...</H5>
-        <p th:utext="${#calendars.format(topo.dateParution, 'dd MM yyyy')}"></p>
-    </div>
-    <hr>
+
+            <label for="region">Région</label>
+            <select th:field="*{region}" id="region">
+                <option th:each="region : ${regions}" th:value="${region.regionId}" th:text="${region.nomRegion}")>Alpes </option>
+            </select>
+
+            <!--        <label for="region">Région</label>-->
+            <!--        <select th:field="*{region}">-->
+            <!--            <option disabled>Choisissez une région...</option>-->
+            <!--            <option th:each="region : ${#numbers.sequence(0, 100)}" th:value="${i}" th:text="${i}" th:selected="${region.regionId==Topo.}")>Banana </option>-->
+            <!--        </select>-->
+
+<!--            <input type="text" th:field="*{region}" id="region" placeholder="region" th:value="*{region.regionId}">-->
+<!--            <label for="utilisateur">Région</label>-->
+<!--            <input type="text" th:field="*{utilisateur}" id="utilisateur" placeholder="menbre" th:value="*{utilisateur.pseudo}">-->
+            <input type="hidden" th:field="*{utilisateur.id}" th:value="2" name="idUtilisateur"/>
+            <div th:if="${#fields.hasErrors('*')}">errors</div>
+
+            <input type="submit" value="Valider">
+        </form>
 
 </div>
-<br/>
+
+<hr>
 
 <footer th:replace="generique :: footer"></footer>
 
