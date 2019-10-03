@@ -1,32 +1,86 @@
 package com.emmanuel.escalade.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "site")
 public class Site {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int siteid;
+    @Column(name="siteid")
+    private Integer siteid;
     private String nomSite;
-    private String region;
-    private int difficulteMin;
-    private int difficulteMax;
+    private String descriptionSite;
+    private String photo;
+ //   @Column(name = "tag_officiel")
+    private Boolean tagOfficiel;
+    @ManyToOne
+    @JoinColumn(name="regionid", nullable=false)
+    private Region region;
+    @OneToMany (mappedBy = "site", cascade = CascadeType.ALL)
+    private List<Secteur> secteurs;
 
-    public int getDifficulteMin() {
-        return difficulteMin;
+//    @Transient
+//    private String cotationMin;
+//    @Transient
+//    private String cotationMax;
+
+    public Site() {
     }
 
-    public void setDifficulteMin(int difficulteMin) {
-        this.difficulteMin = difficulteMin;
+    public Site(Integer siteid, String nomSite, String descriptionSite, String photo, Boolean tagOfficiel, Region region) {
+        this.siteid = siteid;
+        this.nomSite = nomSite;
+        this.descriptionSite = descriptionSite;
+        this.photo = photo;
+        this.tagOfficiel = tagOfficiel;
+        this.region = region;
     }
 
-    public int getDifficulteMax() {
-        return difficulteMax;
+    public Integer getSiteid() {
+        return siteid;
     }
 
-    public void setDifficulteMax(int difficulteMax) {
-        this.difficulteMax = difficulteMax;
+    public void setSiteid(Integer siteid) {
+        this.siteid = siteid;
     }
+
+    public String getNomSite() {
+        return nomSite;
+    }
+
+    public void setNomSite(String nomSite) {
+        this.nomSite = nomSite;
+    }
+
+    public String getDescriptionSite() {
+        return descriptionSite;
+    }
+
+    public void setDescriptionSite(String descriptionSite) {
+        this.descriptionSite = descriptionSite;
+    }
+
+    public Boolean getTagOfficiel() {
+        return tagOfficiel;
+    }
+
+    public void setTagOfficiel(Boolean tagOfficiel) {
+        this.tagOfficiel = tagOfficiel;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public String getPhoto() {        return photo;    }
+
+    public void setPhoto(String photo) {        this.photo = photo;    }
 
 }

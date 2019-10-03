@@ -18,7 +18,7 @@ public class IndexControleur {
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
 
     @RequestMapping(value={"/", "/index"})    // /index = suffixe de l'URL
-    // @ReturnBody renvoie directement la réponse (texte, variable,objet) et pas une page HTML
+    // @ReturnBody renvoie directement la réponse (texte, variable, objet) et pas une page HTML
     public String accueil (Model model) {
        // log.info("Ceci est un message pour la log");
         model.addAttribute("message2", "rien");

@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Escalade</title>
-    <meta name="description" content="Site officiel des Amis de l'Escalade">
-    <meta name="keywords" content="escalade, topo, grimpeur">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-</head>
+<head th:replace="generique :: head"></head>
 
 <body>
 <header th:insert="generique.html :: nav"></header>
@@ -22,22 +12,23 @@
 
 
     <div class="card-columns">
-        <div class="card" th:each ="topo : ${topos}">
-            <img src="http://lorempixel.com/200/200/nature/5" class="card-img-top" th:title="${topo.nomTopo}" alt="...">
+        <div class="card" th:each ="site : ${sites}">
+            <img src="http://lorempixel.com/200/200/nature/5" class="card-img-top" th:src="@{'/img/' + ${site.photo}}" th:title="${site.nomSite}" alt="..."/>
             <div class="card-body">
-                <h5 class="card-title" th:utext="${topo.nomTopo}">La montée infernaleeeee</h5>
-                <P class="card-text" th:utext="${topo.descritpionTopo}">Site présentant une complexité graduelle. Un plaisir pour les débutants comme les confirmés.</P>
+                <h5 class="card-title" th:utext="${site.nomSite}">La montée infernale</h5>
+                <P class="card-text" th:utext="${site.descriptionSite}">Site présentant une complexité graduelle. Un plaisir pour les débutants comme les confirmés.</P>
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:class="${cotationMin}" role="progressbar" style="width: 22%"  aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div class="progress-bar" role="progressbar" style="width: 33%"  aria-valuemin="0" aria-valuemax="100">4b</div>
                     <!--<div class="progress-bar" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">4b</div>-->
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">22</div>
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">22</div>
                 </div>
-                <p class="card-text"><small class="text-muted">Alpes</small></p>
+                <p class="card-text" ><small class="text-muted" th:utext="${site.nomRegion}">Alpes</small></p>
             </div>
         </div>
 
         <div class="card">
-            <a href="home.html"><img src="http://lorempixel.com/200/200/nature/1" class="card-img-top" alt="..."></a>
+            <a href="home.html"><img src="http://lorempixel.com/200/200/nature/1" class="card-img-top" alt="..."/></a>
             <div class="card-body">
                 <h5 class="card-title">La montée infernale&&&&</h5>
                 <P class="card-text">Site présentant une complexité graduelle. Un plaisir pour les débutants comme les confirmés.</P>
@@ -49,7 +40,7 @@
             </div>
         </div>
         <div class="card">
-            <img src="http://lorempixel.com/200/200/nature/2" class="card-img-top" alt="...">
+            <img src="http://lorempixel.com/200/200/nature/2" class="card-img-top" alt="..."/>
             <div class="card-body">
                 <h5 class="card-title">La falaise de la muerta</h5>
                 <P class="card-text">Site d&acute;une grande compexité réservé aux pros.</P>
@@ -61,7 +52,7 @@
             </div>
         </div>
         <div class="card">
-            <img src="http://lorempixel.com/200/200/nature/2" class="card-img-top" alt="...">
+            <img src="http://lorempixel.com/200/200/nature/2" class="card-img-top" alt="..."/>
             <div class="card-body">
                 <h5 class="card-title">La falaise de la muerta</h5>
                 <P class="card-text">Site d&acute;une grande compexité réservé aux pros.</P>
@@ -73,7 +64,7 @@
             </div>
         </div>
         <div class="card">
-            <img src="http://lorempixel.com/200/200/nature/3" class="card-img-top" alt="...">
+            <img src="http://lorempixel.com/200/200/nature/3" class="card-img-top" alt="..."/>
             <div class="card-body">
                 <h5 class="card-title">La montée infernalerrrr</h5>
                 <P class="card-text">Site présentant une complexité graduelle. Un plaisir pour les débutants comme les confirmés.</P>
@@ -85,7 +76,7 @@
             </div>
         </div>
         <div class="card">
-            <img src="http://lorempixel.com/200/200/nature/4" class="card-img-top" alt="...">
+            <img src="http://lorempixel.com/200/200/nature/4" class="card-img-top" alt="..."/>
             <div class="card-body">
                 <h5 class="card-title">La montée infernale</h5>
                 <P class="card-text">Site présentant une complexité graduelle. Un plaisir pour les débutants comme les confirmés.</P>
@@ -96,8 +87,6 @@
                 <p class="card-text"><small class="text-muted">Alpes</small></p>
             </div>
         </div>
-
-
     </div>
 </div>
 

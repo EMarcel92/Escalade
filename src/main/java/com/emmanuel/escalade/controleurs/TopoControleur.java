@@ -47,10 +47,11 @@ public class TopoControleur {
         if (result.hasErrors()) {
             return "ajoutertopo";
         }
+        //todo vérifer que l'utilisateur est connecté, sinon rediriger vers login
         //todo récupérer l'user connecté et supprimer la ligne suivante
         Utilisateur utilisateur = utilisateurRepository.findById(2).get();
         topo.setUtilisateur(utilisateur);
-        utilisateurRepository.save(utilisateur);
+       // utilisateurRepository.save(utilisateur);
         topoRepository.save(topo);
         model.addAttribute("topos", topoRepository.findAll());
         return "redirect:/listetopos";
@@ -58,6 +59,9 @@ public class TopoControleur {
 
     @GetMapping("/majtopo/{id}")
     public String mettreAJourTopo(@PathVariable("id") Integer id, Model model) {
+        // PathVariable récupère l'id dans l'URI et le met dana l'integer id
+        //Pour récupérer une variable p&assée en paramètre dans l'URL, utiliser @RequestParam
+        //ex : @RequestParam(value = "date", required = false) Date dateOrNull)
         Topo topo = topoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Identifiant topo inconnu : " + id));
         model.addAttribute("regions", regionRepository.findAll());
         model.addAttribute("topo", topo);
@@ -70,12 +74,6 @@ public class TopoControleur {
             topo.setTopoId(id);
             return "majtopo";
         }
-      //  regionRepository.save(region);
-      //  topoRepository.save(topo);
-       // model.addAttribute("topos", topoRepository.findAll());
-
-
-
      //   Utilisateur utilisateur = topo.getUtilisateur();
      //   topo.setUtilisateur(utilisateur);
      //   utilisateurRepository.save(utilisateur);
@@ -97,10 +95,18 @@ public class TopoControleur {
         return "ajoutertopo";
     }
 
+    @GetMapping("/supprimertopo/{id}")
+    public String supprimerTopo(@PathVariable("id") Integer id, Model model){
+        topoRepository.deleteById(id);
+        model.addAttribute("topos", topoRepository.findAll());
+        return "redirect:/listetopos";
+    }
+
     //todo test à detruire
     @GetMapping("/test/{id}")
     public String test(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("topo", topoRepository.findById(id));
         //        model.addAttribute("topo", topo);
         return "test";
-    }}
+    }
+}
