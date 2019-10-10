@@ -60,7 +60,7 @@ public class TopoControleur {
     @GetMapping("/majtopo/{id}")
     public String mettreAJourTopo(@PathVariable("id") Integer id, Model model) {
         // PathVariable récupère l'id dans l'URI et le met dana l'integer id
-        //Pour récupérer une variable p&assée en paramètre dans l'URL, utiliser @RequestParam
+        //Pour récupérer une variable passée en paramètre dans l'URL, utiliser @RequestParam
         //ex : @RequestParam(value = "date", required = false) Date dateOrNull)
         Topo topo = topoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Identifiant topo inconnu : " + id));
         model.addAttribute("regions", regionRepository.findAll());
@@ -74,10 +74,6 @@ public class TopoControleur {
             topo.setTopoId(id);
             return "majtopo";
         }
-     //   Utilisateur utilisateur = topo.getUtilisateur();
-     //   topo.setUtilisateur(utilisateur);
-     //   utilisateurRepository.save(utilisateur);
-     //   utilisateurRepository.save(topo.getUtilisateur());
         topo.setTopoId(id);
         topoRepository.save(topo);
         model.addAttribute("topos", topoRepository.findAll());

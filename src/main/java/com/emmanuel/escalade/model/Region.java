@@ -14,6 +14,8 @@ public class Region {
     private String nomRegion;
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
     private List<Topo> topos;
+    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
+    private List<Site> sites;
 
     public Region() {
     }
@@ -53,12 +55,16 @@ public class Region {
         topos.add(t) ;
     }
 
-    @Override
-    public String toString() {
-        return "Region{" +
-                "regionId=" + regionId +
-                ", nomRegion='" + nomRegion + '\'' +
-                '}';
+    public List<Topo> getTopos() {
+        return topos;
+    }
+
+    public List<Site> getSites() {
+        return sites;
+    }
+
+    public void setSites(List<Site> sites) {
+        this.sites = sites;
     }
 }
 

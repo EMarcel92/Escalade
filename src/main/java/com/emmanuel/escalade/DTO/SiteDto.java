@@ -1,18 +1,15 @@
 package com.emmanuel.escalade.DTO;
 
-import com.emmanuel.escalade.model.Region;
-import com.emmanuel.escalade.model.Secteur;
-import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
 
-public class SiteDto {
+public class SiteDto implements Serializable {
  //   private Integer siteid;
     private String nomSite;
     private String descriptionSite;
     private String photo;
     private Boolean tagOfficiel;
-    private String NomRegion;
-    private String cotationMin;
+    private String nomRegion;
+ //   private String cotationMin;
 //    private String cotationMax;
 
     public SiteDto() {
@@ -23,8 +20,8 @@ public class SiteDto {
         this.descriptionSite = descriptionSite;
         this.photo = photo;
         this.tagOfficiel = tagOfficiel;
-        NomRegion = nomRegion;
-        this.cotationMin = cotationMin;
+        this.nomRegion = nomRegion;
+   //     this.cotationMin = cotationMin;
     }
 
     public String getNomSite() {
@@ -60,18 +57,18 @@ public class SiteDto {
     }
 
     public String getNomRegion() {
-        return NomRegion;
+        return nomRegion;
     }
 
     public void setNomRegion(String nomRegion) {
-        NomRegion = nomRegion;
+        this.nomRegion = nomRegion;
     }
 
-    public String getCotationMin() {
-        return cotationMin;
-    }
-
-    public void setCotationMin(String cotationMin) {
-        this.cotationMin = cotationMin;
-    }
+//    public String getCotationMin() {
+//        return cotationMin;
+//    }
+//
+//    public void setCotationMin(String cotationMin) {
+//        this.cotationMin = cotationMin;
+//    }
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "site")
+@Table(name = "SITE")
 public class Site {
 
     @Id
@@ -16,27 +16,15 @@ public class Site {
     private String photo;
  //   @Column(name = "tag_officiel")
     private Boolean tagOfficiel;
+    private String cotationMin;
+    private String cotationMax;
     @ManyToOne
     @JoinColumn(name="regionid", nullable=false)
     private Region region;
     @OneToMany (mappedBy = "site", cascade = CascadeType.ALL)
     private List<Secteur> secteurs;
 
-//    @Transient
-//    private String cotationMin;
-//    @Transient
-//    private String cotationMax;
-
     public Site() {
-    }
-
-    public Site(Integer siteid, String nomSite, String descriptionSite, String photo, Boolean tagOfficiel, Region region) {
-        this.siteid = siteid;
-        this.nomSite = nomSite;
-        this.descriptionSite = descriptionSite;
-        this.photo = photo;
-        this.tagOfficiel = tagOfficiel;
-        this.region = region;
     }
 
     public Integer getSiteid() {
@@ -71,6 +59,22 @@ public class Site {
         this.tagOfficiel = tagOfficiel;
     }
 
+    public String getCotationMin() {
+        return cotationMin;
+    }
+
+    public void setCotationMin(String cotationMin) {
+        this.cotationMin = cotationMin;
+    }
+
+    public String getCotationMax() {
+        return cotationMax;
+    }
+
+    public void setCotationMax(String cotationMax) {
+        this.cotationMax = cotationMax;
+    }
+
     public Region getRegion() {
         return region;
     }
@@ -83,4 +87,16 @@ public class Site {
 
     public void setPhoto(String photo) {        this.photo = photo;    }
 
+    @Override
+    public String toString() {
+        return "Site{" +
+                "siteid=" + siteid +
+                ", nomSite='" + nomSite + '\'' +
+                ", descriptionSite='" + descriptionSite + '\'' +
+                ", photo='" + photo + '\'' +
+                ", tagOfficiel=" + tagOfficiel +
+                ", region=" + region +
+                ", secteurs=" + secteurs +
+                '}';
+    }
 }

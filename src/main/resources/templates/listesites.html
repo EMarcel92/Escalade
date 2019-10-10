@@ -1,33 +1,130 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://thymeleaf.org">
 <head th:replace="generique :: head"></head>
 
 <body>
 <header th:insert="generique.html :: nav"></header>
-<H1 class="monTitre">longue liste des SITES avec critères</H1>
 <div class="container">
     <br/>
-    <h2>Pavage droit avec x colonnes</h2>
+    <h2>Sites d'escalade</h2>
     <hr/>
 
+    <form action="#" method="post" th:action="@{/recherchersites}" th:object="${siteCriteres}">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="nomsite">Nom du site</label>
+                <input type="text" class="form-control" th:field="*{nomSite}" id="nomsite">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="region">Région</label>
+                <select th:field="*{regionId}" id="region" class="form-control">
+                    <option value=0 selected>Toutes</option>
+                    <option th:each="region : ${regions}" th:value="${region.regionId}" th:text="${region.nomRegion}")>Alpes </option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="cotationMin">Cotation < à</label>
+                <select th:field="*{cotationMin}"id="cotationMin" class="form-control">
+                    <option value="" selected>Minimum...</option>
+                    <option value="3a">3</option>
+                    <option value="4a">4</option>
+                    <option value="5a">5</option>
+                    <option value="6a">6</option>
+                    <option value="7a">7</option>
+                    <option value="8a">8</option>
+                    <option value="9a">9</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="cotationMax">&nbsp; </label>
+                <select th:field="*{cotationMax}" id="cotationMax" class="form-control">
+                    <option value="" selected>Maximum...</option>
+                    <option value="3c">3</option>
+                    <option value="4c">4</option>
+                    <option value="5c">5</option>
+                    <option value="6c">6</option>
+                    <option value="7c">7</option>
+                    <option value="8c">8</option>
+                    <option value="9c">9</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="nbSecteurs">Secteurs</label>
+                <input type="number" class="form-control" min="0" max="50" th:field="*{nbSecteurs}" id="nbSecteurs">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+    </form>
+    <hr/>
 
     <div class="card-columns">
         <div class="card" th:each ="site : ${sites}">
-            <img src="http://lorempixel.com/200/200/nature/5" class="card-img-top" th:src="@{'/img/' + ${site.photo}}" th:title="${site.nomSite}" alt="..."/>
+            <a th:href="@{/site/{id}(id=${site.siteid})}">
+                <img src="http://lorempixel.com/200/200/nature/5" class="card-img-top" th:src="@{'/img/' + ${site.photo}}" th:title="${site.nomSite}" alt="..."/>
+            </a>
             <div class="card-body">
                 <h5 class="card-title" th:utext="${site.nomSite}">La montée infernale</h5>
                 <P class="card-text" th:utext="${site.descriptionSite}">Site présentant une complexité graduelle. Un plaisir pour les débutants comme les confirmés.</P>
-                <div class="progress">
-                    <div th:class="${cotationMin}" role="progressbar" style="width: 22%"  aria-valuemin="0" aria-valuemax="100">4b</div>
-                    <div class="progress-bar" role="progressbar" style="width: 33%"  aria-valuemin="0" aria-valuemax="100">4b</div>
-                    <!--<div class="progress-bar" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">4b</div>-->
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">22</div>
+                <STRONG>Difficulté :</STRONG>
+                <div class="progress" th:switch="${site.cotationMin}">
+                    <div th:case="'3a'" class="progress-bar bg-success" th:utext="${site.cotationMin}" role="progressbar" style="width: 14%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'3b'" class="progress-bar bg-success" th:utext="${site.cotationMin}" role="progressbar" style="width: 14%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'3c'" class="progress-bar bg-success" th:utext="${site.cotationMin}" role="progressbar" style="width: 14%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'4a'" class="progress-bar bg-success" th:utext="${site.cotationMin}" role="progressbar" style="width: 29%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'4b'" class="progress-bar bg-success" th:utext="${site.cotationMin}" role="progressbar" style="width: 29%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'4c'" class="progress-bar bg-primary" th:utext="${site.cotationMin}" role="progressbar" style="width: 29%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'5a'" class="progress-bar bg-primary" th:utext="${site.cotationMin}" role="progressbar" style="width: 43%" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'5b'" class="progress-bar bg-primary" th:utext="${site.cotationMin}" role="progressbar" style="width: 43%" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'5c'" class="progress-bar bg-primary" th:utext="${site.cotationMin}" role="progressbar" style="width: 43%" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'6a'" class="progress-bar bg-primary" th:utext="${site.cotationMin}" role="progressbar" style="width: 57%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'6b'" class="progress-bar bg-danger" th:utext="${site.cotationMin}" role="progressbar" style="width: 57%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'6c'" class="progress-bar bg-danger" th:utext="${site.cotationMin}" role="progressbar" style="width: 57%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'7a'" class="progress-bar bg-danger" th:utext="${site.cotationMin}" role="progressbar" style="width: 71%" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'7b'" class="progress-bar bg-danger" th:utext="${site.cotationMin}" role="progressbar" style="width: 71%" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'7c'" class="progress-bar bg-danger" th:utext="${site.cotationMin}" role="progressbar" style="width: 71%" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'8a'" class="progress-bar bg-danger" th:utext="${site.cotationMin}" role="progressbar" style="width: 86%" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'8b'" class="progress-bar bg-dark" th:utext="${site.cotationMin}" role="progressbar" style="width: 86%" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'8c'" class="progress-bar bg-dark" th:utext="${site.cotationMin}" role="progressbar" style="width: 86%" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'9a'" class="progress-bar bg-dark" th:utext="${site.cotationMin}" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'9b'" class="progress-bar bg-dark" th:utext="${site.cotationMin}" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'9c'" class="progress-bar bg-dark" th:utext="${site.cotationMin}" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">4b</div>
+                    <div th:case="*">inconnue</div>
                 </div>
-                <p class="card-text" ><small class="text-muted" th:utext="${site.nomRegion}">Alpes</small></p>
+
+                <div class="progress" th:switch="${site.cotationMax}">
+                    <div th:case="'3a'" class="progress-bar bg-success" th:utext="${site.cotationMax}" role="progressbar" style="width: 14%" aria-valuenow="14" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'3b'" class="progress-bar bg-success" th:utext="${site.cotationMax}" role="progressbar" style="width: 14%" aria-valuenow="14" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'3c'" class="progress-bar bg-success" th:utext="${site.cotationMax}" role="progressbar" style="width: 14%" aria-valuenow="14" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'4a'" class="progress-bar bg-success" th:utext="${site.cotationMax}" role="progressbar" style="width: 29%" aria-valuenow="29" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'4b'" class="progress-bar bg-success" th:utext="${site.cotationMax}" role="progressbar" style="width: 29%" aria-valuenow="29" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'4c'" class="progress-bar bg-primary" th:utext="${site.cotationMax}" role="progressbar" style="width: 29%" aria-valuenow="29" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'5a'" class="progress-bar bg-primary" th:utext="${site.cotationMax}" role="progressbar" style="width: 43%" aria-valuenow="43" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'5b'" class="progress-bar bg-primary" th:utext="${site.cotationMax}" role="progressbar" style="width: 43%" aria-valuenow="43" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'5c'" class="progress-bar bg-primary" th:utext="${site.cotationMax}" role="progressbar" style="width: 43%" aria-valuenow="43" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'6a'" class="progress-bar bg-primary" th:utext="${site.cotationMax}" role="progressbar" style="width: 57%" aria-valuenow="57" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'6b'" class="progress-bar bg-danger" th:utext="${site.cotationMax}" role="progressbar" style="width: 57%" aria-valuenow="57" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'6c'" class="progress-bar bg-danger" th:utext="${site.cotationMax}" role="progressbar" style="width: 57%" aria-valuenow="57" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'7a'" class="progress-bar bg-danger" th:utext="${site.cotationMax}" role="progressbar" style="width: 71%" aria-valuenow="71" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'7b'" class="progress-bar bg-danger" th:utext="${site.cotationMax}" role="progressbar" style="width: 71%" aria-valuenow="71" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'7c'" class="progress-bar bg-danger" th:utext="${site.cotationMax}" role="progressbar" style="width: 71%" aria-valuenow="71" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'8a'" class="progress-bar bg-danger" th:utext="${site.cotationMax}" role="progressbar" style="width: 86%" aria-valuenow="86" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'8b'" class="progress-bar bg-dark" th:utext="${site.cotationMax}" role="progressbar" style="width: 86%" aria-valuenow="86" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'8c'" class="progress-bar bg-dark" th:utext="${site.cotationMax}" role="progressbar" style="width: 86%" aria-valuenow="86" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'9a'" class="progress-bar bg-dark" th:utext="${site.cotationMax}" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'9b'" class="progress-bar bg-dark" th:utext="${site.cotationMax}" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="'9c'" class="progress-bar bg-dark" th:utext="${site.cotationMax}" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valueMin="0" aria-valuemax="100">4b</div>
+                    <div th:case="*">inconnue</div>
+                </div>
+
+
+
+<!--                    <div class="progress-bar" role="progressbar" style="width: 33%"  aria-valuemin="0" aria-valuemax="100">4b</div>-->
+<!--                    <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">22</div>-->
+                <p class="card-text" ><small class="text-muted" th:utext="${site.region.nomRegion}">Alpes</small></p>
             </div>
         </div>
 
-        <div class="card">
+<!--        <div class="card">
             <a href="home.html"><img src="http://lorempixel.com/200/200/nature/1" class="card-img-top" alt="..."/></a>
             <div class="card-body">
                 <h5 class="card-title">La montée infernale&&&&</h5>
@@ -87,11 +184,9 @@
                 <p class="card-text"><small class="text-muted">Alpes</small></p>
             </div>
         </div>
+        -->
     </div>
 </div>
-
-
-<hr>
 
 <footer th:replace="generique.html :: footer"></footer>
 

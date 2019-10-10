@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Escalade</title>
-    <meta name="description" content="Site officiel des Amis de l'Escalade">
-    <meta name="keywords" content="escalade, topo, grimpeur">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-</head>
+<html lang="fr" xmlns:th="http://thymeleaf.org">
+<head th:replace="generique :: head"></head>
 
 <body>
-<header th:replace="generique :: nav"></header>
-<H1 class="monTitre">Page de présentation d'un SITE</H1>
-
+<header th:insert="generique.html :: nav"></header>
 <div class="container">
+    <H1 class="monTitre" th:text="${site.nomSite}">Nom du SITE</H1>
+    <div class="row align-items-center">
+        <img class="rounded float-left col-md-3" th:src="@{'/img/' + ${site.photo}}" th:title="${site.nomSite}" alt="..."/>
+        <div class="col-sm-12 col-md-6">
+            <div class="row justify-content-end">
+                <img class="col-sm-6 col-md-3" th:src="@{/img/officiel.png}" alt="site officiel"/>
+            </div>
+            <P th:text="${site.descriptionSite}"></P>
+            <P>Difficulté : de <strong th:text="${site.cotationMin}"></strong> à <strong th:text="${site.cotationMax}"></strong></P>
+            <P th:text="${site.region.nomRegion}"></P>
+        </div>
+
+    </div>
 
 
 </div>
