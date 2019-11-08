@@ -1,12 +1,9 @@
 package com.emmanuel.escalade.DAO;
 
-import com.emmanuel.escalade.model.MesUsers;
+import com.emmanuel.escalade.model.Secteur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface UserRepository extends JpaRepository<MesUsers, Integer> {
-
+public interface SecteurRepository extends JpaRepository<Secteur, Integer> {
 }

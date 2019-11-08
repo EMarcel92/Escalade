@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://thymeleaf.org">
+<head th:replace="generique :: head"></head>
+
+<body>
+<header th:replace="generique :: nav"></header>
+<H1 class="monTitre">Page de CREATION d'un compte</H1>
+
+<div class="container">
+    <form action="#" method="post" th:action="@{/nouvelutilisateur}" th:object="${utilisateur}">
+        <label for="pseudo">Pseudo</label>
+        <input id="pseudo" placeholder="votre pseudo" th:field="*{pseudo}" type="text">
+        <span th:errors="*{pseudo}" th:if="${#fields.hasErrors('pseudo')}"></span>
+        <label for="motdepasse">Mot de passe</label>
+        <input id="motdepasse" placeholder="Mot de passe" th:field="*{motDePasse}" type="password">
+        <label for="motdepasseconfirme">Mot de passe</label>
+        <input id="motdepasseconfirme" placeholder="Confirmer mot de passe" th:field="*{motDePasseConfirme}" type="password">
+        <label for="nom">Nom</label>
+        <input id="nom" placeholder="votre nom" th:field="*{nomUtilisateur}" type="text">
+        <span th:errors="*{nomUtilisateur}" th:if="${#fields.hasErrors('nomUtilisateur')}"></span>
+        <label for="prenom">Prénom</label>
+        <input id="prenom" placeholder="votre nom" th:field="*{nomUtilisateur}" type="text">
+        <span th:errors="*{nomUtilisateur}" th:if="${#fields.hasErrors('nomUtilisateur')}"></span>
+        <label for="email">Email</label>
+        <input id="email" placeholder="Email" th:field="*{email}" type="text">
+        <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+        <input type="submit" value="Enregistrer">
+    </form>
+
+</div>
+
+<hr>
+
+<footer th:replace="generique.html :: footer"></footer>
+
+<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js/"></script>
+<script type="text/javascript" src="webjars/popper.js/1.14.3/popper.min.js"></script>
+<script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://thymeleaf.org">
 <head th:replace="generique :: head"></head>
 
 <body>
@@ -59,7 +59,7 @@
                 <!--</div>-->
             </div>
 
-            <input type="hidden" th:field="*{utilisateur.id}" th:value="2" name="idUtilisateur"/>
+            <input type="hidden" th:field="*{utilisateur.utilisateurId}" th:value="2" name="idUtilisateur"/>
             <div th:if="${#fields.hasErrors('*')}">errors</div>
 
             <input type="submit" value="Valider">

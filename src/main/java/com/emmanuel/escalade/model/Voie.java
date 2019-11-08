@@ -12,19 +12,39 @@ public class Voie {
     @Column(name = "voieid")
     private Integer voieid;
     private String nomVoie;
+    private String cotationVoie;
+    private Integer nbPointsVoie;
     @ManyToOne
     @JoinColumn(name="secteurid", nullable=false)
     private Secteur secteur;
-//    @OneToMany (mappedBy = "voie", cascade = CascadeType.ALL)
-//    private List<Longueur> longueurs;
+    @OneToMany (mappedBy = "voie", cascade = CascadeType.ALL)
+    private List<Longueur> longueurs;
 
     public Voie() {
     }
 
-    public Voie(String nomVoie, Secteur secteur, List<Longueur> longueurs) {
+    public String getNomVoie() {
+        return nomVoie;
+    }
+
+    public void setNomVoie(String nomVoie) {
         this.nomVoie = nomVoie;
-        this.secteur = secteur;
-//        this.longueurs = longueurs;
+    }
+
+    public String getCotationVoie() {
+        return cotationVoie;
+    }
+
+    public void setCotationVoie(String cotationVoie) {
+        this.cotationVoie = cotationVoie;
+    }
+
+    public Integer getNbPointsVoie() {
+        return nbPointsVoie;
+    }
+
+    public void setNbPointsVoie(Integer nbPointsVoie) {
+        this.nbPointsVoie = nbPointsVoie;
     }
 
     public Integer getVoieid() {
@@ -35,14 +55,6 @@ public class Voie {
         this.voieid = voieid;
     }
 
-    public String getNom_voie() {
-        return nomVoie;
-    }
-
-    public void setNom_voie(String nom_voie) {
-        this.nomVoie = nom_voie;
-    }
-
     public Secteur getSecteur() {
         return secteur;
     }
@@ -51,12 +63,13 @@ public class Voie {
         this.secteur = secteur;
     }
 
-//    public List<Longueur> getLongueurs() {
-//        return longueurs;
-//    }
-//
-//    public void setLongueurs(List<Longueur> longueurs) {
-//        this.longueurs = longueurs;
-//    }
+    public List<Longueur> getLongueurs() {
+        return longueurs;
+    }
+
+    public void setLongueurs(List<Longueur> longueurs) {
+        this.longueurs = longueurs;
+    }
+
 }
 

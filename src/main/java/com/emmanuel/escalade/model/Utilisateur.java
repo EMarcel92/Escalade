@@ -2,9 +2,10 @@ package com.emmanuel.escalade.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.List;
-
 
 @Entity
 @Table(name="utilisateur")
@@ -13,25 +14,38 @@ public class Utilisateur {
     @Id   //champ clé primaire
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="utilisateurid")
-    private Integer id;
+    private Integer utilisateurId;
     @NotBlank(message = "Pseudo obligatoire")
-    @Size(min = 3, max = 50, message = "Client Name should be greater then 3 Characters Or Less Then 50 Characters")
+    @NotNull
+    @Size(min = 3, max = 10, message = "Le pseudo doit avoir 3 à 10 caractères")
     @Column(unique = true)
     private String pseudo;
+    @NotNull
+    @Column(nullable = false)
     private String motDePasse;
+    @Column(nullable = false)
     private String nomUtilisateur;
+    @Column(nullable = false)
     private String prenomUtilisateur;
-    private String profil;
+    @Column(nullable = false)
+    private String email;
+
+    @Transient
+    private String motDePasseConfirme;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "utilisateur_role", joinColumns = @JoinColumn(name = "utilisateurid"), inverseJoinColumns = @JoinColumn(name = "roleid"))
+    private Collection<Role> roles;
+
     @OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL)   //utilisateur est l'attribut objet instancié dans Topo
     private List<Topo> topos;
-
-    //standard constructors/setters/getters/toString
-
+    @OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL)
+    private List<Commentaire> commentaires;
 
     public Utilisateur() {    }
 
-    public Integer getId() {
-        return id;
+    public Integer getUtilisateurId() {
+        return utilisateurId;
     }
 
     public String getPseudo() {
@@ -42,6 +56,10 @@ public class Utilisateur {
         return motDePasse;
     }
 
+    public String getMotDePasseConfirme() {
+        return motDePasseConfirme;
+    }
+
     public String getNomUtilisateur() {
         return nomUtilisateur;
     }
@@ -50,10 +68,12 @@ public class Utilisateur {
         return prenomUtilisateur;
     }
 
-    public String getProfil() {   return profil; }
+    public String getEmail() {
+        return email;
+    }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUtilisateurId(Integer utilisateurId) {
+        this.utilisateurId = utilisateurId;
     }
 
     public void setPseudo(String pseudo) {
@@ -64,6 +84,10 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
     }
 
+    public void setMotDePasseConfirme(String motDePasseConfirme) {
+        this.motDePasseConfirme = motDePasseConfirme;
+    }
+
     public void setNomUtilisateur(String nomUtilisateur) {
         this.nomUtilisateur = nomUtilisateur;
     }
@@ -72,8 +96,8 @@ public class Utilisateur {
         this.prenomUtilisateur = prenomUtilisateur;
     }
 
-    public void setProfil(String profil) {
-        this.profil = profil;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<Topo> getTopos() {
@@ -89,16 +113,19 @@ public class Utilisateur {
         topos.add(t) ;
     }
 
-    @Override
-    public String toString() {
-        return "Utilisateur{" +
-                "id=" + id +
-                ", pseudo='" + pseudo + '\'' +
-                ", motDePasse='" + motDePasse + '\'' +
-                ", nomUtilisateur='" + nomUtilisateur + '\'' +
-                ", prenomUtilisateur='" + prenomUtilisateur + '\'' +
-                ", profil='" + profil + '\'' +
-                ", topos=" + topos +
-                '}';
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 }

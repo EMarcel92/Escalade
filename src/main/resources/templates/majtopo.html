@@ -13,7 +13,7 @@
             <input type="text" th:field="*{nomTopo}" id="nomTopo" placeholder="nomTopo" th:value="*{descritpionTopo}">
             <!--<span th:if="${#fields.hasErrors('nomtopo')}" th:errors="*{nomTopo }"></span>-->
             <label for="descritpionTopo">Description</label>
-            <input type="text" th:field="*{descritpionTopo}" id="descritpionTopo" placeholder="descritpionTopo"  th:value='coucou'>
+            <input type="text" th:field="*{descritpionTopo}" id="descritpionTopo" placeholder="descritpionTopo">
             <!--<span th:if="${#fields.hasErrors('descritpionTopo')}" th:errors="*{descritpionTopo}"></span>-->
             <label for="dateParution">Date parution</label>
             <input type="date" th:field="*{dateParution}" id="dateParution" placeholder="dateParution">
@@ -24,15 +24,6 @@
             <select th:field="*{region}" id="region">
                 <option th:each="region : ${regions}" th:value="${region.regionId}" th:text="${region.nomRegion}")>Alpes </option>
             </select>
-
-        <!--    <select>
-                <option disabled>Please select...</option>
-                <option value="apple">Apple</option>
-                <option value="banana" th:selected="${mesusers.id==2}")>Banana </option>
-                <option value="orange">Orange</option>
-                <option value="pear">Pear</option>
-            </select>-->
-
             <label for="utilisateur">Utilisateur</label>
             <input type="text" th:field="*{utilisateur}" id="utilisateur" placeholder="menbre" th:value="*{utilisateur.pseudo}">
 

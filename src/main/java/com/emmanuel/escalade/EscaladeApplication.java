@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@SpringBootApplication  /* = @Configuration @EnableAutoConfiguration @ComponentScan */
+@SpringBootApplication  /* Précise la classe de démarrage = @Configuration @EnableAutoConfiguration @ComponentScan */
 //@EnableJpaRepositories
 public class EscaladeApplication extends SpringBootServletInitializer {
 

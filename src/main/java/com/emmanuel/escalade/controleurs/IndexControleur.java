@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 public class IndexControleur {
 
-    private static final Logger log = LoggerFactory.getLogger(HomeController.class);
+    private static final Logger log = LoggerFactory.getLogger(IndexControleur.class);
 
     @RequestMapping(value={"/", "/index"})    // /index = suffixe de l'URL
     // @ReturnBody renvoie directement la réponse (texte, variable, objet) et pas une page HTML

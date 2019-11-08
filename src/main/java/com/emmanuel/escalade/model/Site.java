@@ -23,6 +23,8 @@ public class Site {
     private Region region;
     @OneToMany (mappedBy = "site", cascade = CascadeType.ALL)
     private List<Secteur> secteurs;
+    @OneToMany (mappedBy = "site", cascade = CascadeType.ALL)
+    private List<Commentaire> commentaires;
 
     public Site() {
     }
@@ -86,6 +88,22 @@ public class Site {
     public String getPhoto() {        return photo;    }
 
     public void setPhoto(String photo) {        this.photo = photo;    }
+
+    public List<Secteur> getSecteurs() {
+        return secteurs;
+    }
+
+    public void setSecteurs(List<Secteur> secteurs) {
+        this.secteurs = secteurs;
+    }
+
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
 
     @Override
     public String toString() {

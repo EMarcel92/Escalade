@@ -7,8 +7,8 @@ import java.sql.Date;
 @Table(name = "topo")
 public class Topo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="topoid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //génère une nouvelle valeur à chaque entité commitée
+    @Column(name="topoid")  // indique le nom de la colonne correspondante dans la table
     private Integer topoId;
     private String nomTopo;
     private String descriptionTopo;
@@ -18,7 +18,7 @@ public class Topo {
     @JoinColumn(name="regionid", nullable=false)
     private Region region;
     @ManyToOne
-    @JoinColumn(name="utilisateurid", nullable=false)  //la clé du parent est utilisateurid dans la table enfant (et pas dans l'entité enfant)
+    @JoinColumn(name="utilisateurid", nullable=false)  //la clé du parent est utilisateurid dans la table enfant (et pas dans l'entité enfant en Java)
     private Utilisateur utilisateur;   //L'objet Utilisateur est le parent de topo
 
     public Topo() {

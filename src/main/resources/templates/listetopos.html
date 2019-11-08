@@ -40,7 +40,7 @@
                                 <td th:text="${topo.region.nomRegion}"></td>
                                 <td th:text="${topo.utilisateur.pseudo}"></td>
                                 <td th:class="${topo.disponible}? 'text-success' : 'text-danger'" th:utext="${topo.disponible}? 'Oui' : 'Non'"></td>
-                                <td><a class="btn btn-primary" th:href="@{/majtopo/{id}(id=${topo.topoId})}"><i class="fas fa-pencil-alt "></i></a></td>
+                                <td><a class="btn btn-primary" th:href="@{/majtopo/{id}(utilisateurId=${topo.topoId})}"><i class="fas fa-pencil-alt "></i></a></td>
                                 <td><a class="btn btn-primary" th:href="@{/supprimertopo/{id}(id=${topo.topoId})}"><i class="far fa-trash-alt"></i></a></td>
                             </tr>
                             </tbody>

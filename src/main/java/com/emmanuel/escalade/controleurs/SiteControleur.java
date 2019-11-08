@@ -27,7 +27,7 @@ public class SiteControleur {
     public SiteControleur(SiteService siteService, RegionService regionService) {
         this.siteService = siteService;
         this.regionService = regionService;
-           }
+    }
 
     @RequestMapping(value = {"/listesites" }, method = RequestMethod.GET)
     public String listeSites(Model model) {
@@ -38,7 +38,6 @@ public class SiteControleur {
         model.addAttribute("siteCriteres", siteCriteres);
         model.addAttribute("regions",regions);
         model.addAttribute("sites", sites);
-        model.addAttribute("cotationMin","progress-bar bg-danger");
         return "listesites";
     }
 
@@ -56,9 +55,14 @@ public class SiteControleur {
     @RequestMapping(value = {"/site/{id}"} , method = RequestMethod.GET)
     public String unSite(@PathVariable("id") Integer id, Model model) {
         Site site = siteService.findById(id);
-       // model.addAttribute("regions", regionRepository.findAll());
         model.addAttribute("site", site);
         return "site";
     }
 
+    @PostMapping(value = "/ajoutercommentaire")
+    public String ajouterComentaire (@RequestParam(value = "texteCommentaire") String texteCommentaire,
+                                     @RequestParam(value="siteid") Integer siteid){
+        siteService.sauverCommentaire(texteCommentaire, siteid);
+        return "redirect:/site/" + siteid;
+    }
 }

@@ -20,12 +20,6 @@ public class Region {
     public Region() {
     }
 
-//    public Region(String nomRegion, Topo... topos) {
-//        this.nomRegion = nomRegion;
-//        this.topos = Stream.of(topos).collect(Collectors.toSet());
-//        this.topos.forEach(x -> x.setRegion(this));
-//    }
-
     public int getRegionId() {
         return regionId;
     }
