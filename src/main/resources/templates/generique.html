@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org" lang="fr">
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="fr">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <title>Escalade</title>
@@ -39,7 +40,7 @@
 
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuSite" role="button"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuSite" nomRole="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-images"></i> Sites
                     </a>
@@ -51,7 +52,7 @@
 
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuTopo" role="button"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuTopo" nomRole="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-book"></i> Topos
                     </a>
@@ -66,16 +67,20 @@
                     <!-- disabled = grisé et non activable -->
                 </li>
             </ul>
-            <ul class="navbar-nav ml-auto">     <!--ml-auto = margin-left:auto qui cale une marge max à gauche-->
+            <ul sec:authorize="!isAuthenticated()" class="navbar-nav ml-auto">     <!--ml-auto = margin-left:auto qui cale une marge max à gauche-->
                 <li class="nav-item">
-                    <a class="nav-link" href="/signup"><i class="fas fa-user-check"></i> S'identifier</a>
+                    <a class="nav-link" href="/login"><i class="fas fa-user-check"></i> Connexion</a>
+                </li>
+            </ul>
+            <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto">     <!--ml-auto = margin-left:auto qui cale une marge max à gauche-->
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> déconnexion</a>
                 </li>
             </ul>
 
         </div>
     </nav>
-
-
+    
 
 </header>
 
