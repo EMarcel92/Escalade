@@ -1,32 +1,31 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Escalade</title>
-    <meta name="description" content="Site officiel des Amis de l'Escalade">
-    <meta name="keywords" content="escalade, topo, grimpeur">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-</head>
+<html lang="fr" xmlns:th="http://thymeleaf.org">
+<head th:replace="generique :: head"></head>
 
 <body>
-<header th:replace="generique.html :: nav"></header>
-<H1 class="monTitre">Page de LOGIN</H1>
+<header th:replace="generique :: nav"></header>
+<H1 class="monTitre">Page de LOGIN USER (login.html)</H1>
 
 <div class="container">
 
-
+    <form action="#" method="post" th:action="@{/login}">
+        <label for="pseudo">Identifiant</label>
+        <input id="pseudo" placeholder="Pseudo" th:field="*{pseudo}" type="text " required="required" autofocus="autofocus"/>
+        <label for="motdepasse">Mot de passe</label>
+        <input id="motdepasse" placeholder="mot de passe" required="required" th:field="*{motDePasse}" type="password"/>
+        <input type="submit" value="S'identifier">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />  <!--Protection Cross-Site Request Forgery-->
+    </form>
+    <a type="button" class="btn" role="button" href="/nouvelutilisateur">S'inscrire</a>
+    <h4 class="text-center"><a href="/nouvelutilisateur">Créer un compte</a></h4>
 </div>
 
 <hr>
 
-<footer th:replace="generique.html :: footer"></footer>
+<footer th:replace="generique :: footer"></footer>
 
-<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js/"></script>
-<script type="text/javascript" src="webjars/popper.js/1.14.3/popper.min.js"></script>
-<script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="/webjars/jquery/3.3.1/jquery.min.js/" type="text/javascript"></script>
+<script src="/webjars/popper.js/1.14.3/popper.min.js" type="text/javascript"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>
