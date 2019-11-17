@@ -10,8 +10,13 @@ import org.springframework.validation.Validator;
 
 @Component
 public class UtilisateurValidator implements Validator {
+
+    private final UtilisateurService utilisateurService;
+
     @Autowired
-    private UtilisateurService utilisateurService;
+    public UtilisateurValidator(UtilisateurService utilisateurService) {
+        this.utilisateurService = utilisateurService;
+    }
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -23,17 +28,28 @@ public class UtilisateurValidator implements Validator {
         Utilisateur utilisateur = (Utilisateur)o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"pseudo","NotEmpty");
+        if (utilisateur.getPseudo().length() < 3 || utilisateur.getPseudo().length() > 10) {
+            errors.rejectValue("pseudo", "Size.utilisateurForm.pseudo");
+        }
         if (utilisateurService.findByPseudo(utilisateur.getPseudo()) != null) {
             errors.rejectValue("pseudo", "Duplicate.utilisateurForm.pseudo");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "motDePasse", "NotEmpty");
         if (utilisateur.getMotDePasse().length() < 3 || utilisateur.getMotDePasse().length() > 10) {
-            errors.rejectValue("motDePasse", "Size.Utilisateur.password");
+            errors.rejectValue("motDePasse", "Size.utilisateurForm.password");
         }
 
         if (!utilisateur.getMotDePasseConfirme().equals(utilisateur.getMotDePasse())) {
-            errors.rejectValue("motDePasseConfirme", "Diff.UtilisateurForm.passwordConfirm");
+            errors.rejectValue("motDePasseConfirme", "Diff.utilisateurForm.passwordConfirm");
+        }
+
+        if (utilisateur.getNomUtilisateur().length() < 2 || utilisateur.getNomUtilisateur().length() > 50) {
+            errors.rejectValue("nomUtilisateur", "Size.utilisateurForm.nomUtilisateur");
+        }
+
+        if (utilisateur.getPrenomUtilisateur().length() < 2 || utilisateur.getPrenomUtilisateur().length() > 50) {
+            errors.rejectValue("prenomUtilisateur", "Size.utilisateurForm.nomUtilisateur");
         }
     }
 }

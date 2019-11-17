@@ -21,7 +21,7 @@
 <header >
     <nav th:fragment="nav" class="navbar navbar-expand-md navbar-light bg-light">
         <!--navbar-expand-lg = étend la navbar sur ecran medium, *navbar-light = police gris clair, bg-light= fond gris clair-->
-        <a class="navbar-brand" href="/test/1">    <!-- navbar-brand pour le logo/titre de la barre de navigation-->
+        <a class="navbar-brand" href="/index">    <!-- navbar-brand pour le logo/titre de la barre de navigation-->
             <img src="../static/img/montagne-sm.png" th:src="@{/img/montagne-sm.png}"  width="60" height="35" class="d-inline-block align-top" alt="Logo Escalade">
             <strong>Les Amis de l'Escalade</strong>
         </a>
@@ -37,7 +37,6 @@
                     <a class="nav-link" href="/index"><i class="fas fa-home"></i> Accueil</a>
                     <!-- fas pour FontAwesome Solide (dessin plein, les autres sont payants) -->
                 </li>
-
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuSite" role="button"

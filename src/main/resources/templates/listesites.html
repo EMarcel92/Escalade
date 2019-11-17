@@ -24,7 +24,7 @@
                 </select>
             </div>
             <div class="form-group col-md-2">
-                <label for="cotationMin">Cotation < à</label>
+                <label for="cotationMin">Cotation min/max</label>
                 <select th:field="*{cotationMin}"id="cotationMin" class="form-control">
                     <option value="" selected>Minimum...</option>
                     <option value="3a">3</option>
@@ -92,7 +92,7 @@
                     <div th:case="*">inconnue</div>
                 </div>
 
-                <div class="progress" th:switch="${site.cotationMax}">
+                <div class="progress mt-2" th:switch="${site.cotationMax}">
                     <div th:case="'3a'" class="progress-bar bg-success" th:utext="${site.cotationMax}" role="progressbar" style="width: 14%" aria-valuenow="14" aria-valueMin="0" aria-valuemax="100">4b</div>
                     <div th:case="'3b'" class="progress-bar bg-success" th:utext="${site.cotationMax}" role="progressbar" style="width: 14%" aria-valuenow="14" aria-valueMin="0" aria-valuemax="100">4b</div>
                     <div th:case="'3c'" class="progress-bar bg-success" th:utext="${site.cotationMax}" role="progressbar" style="width: 14%" aria-valuenow="14" aria-valueMin="0" aria-valuemax="100">4b</div>

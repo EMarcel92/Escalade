@@ -4,29 +4,45 @@
 
 <body>
 <header th:replace="generique :: nav"></header>
-<H1 class="monTitre">Page de CREATION d'un compte</H1>
 
 <div class="container">
-    <form action="#" method="post" th:action="@{/nouvelutilisateur}" th:object="${utilisateur}">
-        <label for="pseudo">Pseudo</label>
-        <input id="pseudo" placeholder="votre pseudo" th:field="*{pseudo}" type="text">
-        <span th:errors="*{pseudo}" th:if="${#fields.hasErrors('pseudo')}"></span>
-        <label for="motdepasse">Mot de passe</label>
-        <input id="motdepasse" placeholder="Mot de passe" th:field="*{motDePasse}" type="password">
-        <label for="motdepasseconfirme">Mot de passe</label>
-        <input id="motdepasseconfirme" placeholder="Confirmer mot de passe" th:field="*{motDePasseConfirme}" type="password">
-        <label for="nom">Nom</label>
-        <input id="nom" placeholder="votre nom" th:field="*{nomUtilisateur}" type="text">
-        <span th:errors="*{nomUtilisateur}" th:if="${#fields.hasErrors('nomUtilisateur')}"></span>
-        <label for="prenom">Prénom</label>
-        <input id="prenom" placeholder="votre nom" th:field="*{nomUtilisateur}" type="text">
-        <span th:errors="*{nomUtilisateur}" th:if="${#fields.hasErrors('nomUtilisateur')}"></span>
-        <label for="email">Email</label>
-        <input id="email" placeholder="Email" th:field="*{email}" type="text">
-        <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+    <H4 class="monTitre">Création d'un compte</H4>
+    <div class="row">
+    <form class=" col-md-8" action="#" method="post" th:action="@{/nouvelutilisateur}" th:object="${utilisateur}">
+        <div class="form-group">
+            <label for="pseudo">Pseudo</label>
+            <input id="pseudo" th:class="'form-control form-control-sm ' + (${#fields.hasErrors('pseudo')} ? 'is-invalid' : '')" placeholder="votre pseudo" th:field="*{pseudo}" type="text">
+            <span class="invalid-feedback" th:utext="${#fields.errors('pseudo')}"></span>
+        </div>
+        <div class="form-group">
+            <label for="motdepasse">Mot de passe</label>
+            <input id="motdepasse" th:class="'form-control form-control-sm ' + (${#fields.hasErrors('motDePasse')} ? 'is-invalid' : '')" placeholder="Mot de passe" th:field="*{motDePasse}" type="password">
+            <span class="invalid-feedback" th:utext="${#fields.errors('motDePasse')}"></span>
+        </div>
+        <div class="form-group">
+            <label for="motdepasseconfirme">Mot de passe</label>
+            <input id="motdepasseconfirme" th:class="'form-control form-control-sm ' + (${#fields.hasErrors('motDePasseConfirme')} ? 'is-invalid' : '')" placeholder="Confirmer mot de passe" th:field="*{motDePasseConfirme}" type="password">
+            <span class="invalid-feedback" th:errors="*{motDePasseConfirme}" th:utext="${#fields.errors('motDePasseConfirme')}"></span>
+        </div>
+        <div class="form-group">
+            <label for="nom">Nom</label>
+            <input id="nom" th:class="'form-control form-control-sm ' + (${#fields.hasErrors('nomUtilisateur')} ? 'is-invalid' : '')" placeholder="votre nom" th:field="*{nomUtilisateur}" type="text">
+            <span th:errors="*{nomUtilisateur}" th:if="${#fields.hasErrors('nomUtilisateur')}"></span>
+        </div>
+        <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input id="prenom" th:class="'form-control form-control-sm ' + (${#fields.hasErrors('prenomUtilisateur')} ? 'is-invalid' : '')" placeholder="votre prénom" th:field="*{prenomUtilisateur}" type="text">
+            <span class="invalid-feedback" th:utext="${#fields.errors('prenomUtilisateur')}"></span>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" th:class="'form-control form-control-sm ' + (${#fields.hasErrors('email')} ? 'is-invalid' : '')" placeholder="Email" th:field="*{email}" type="text">
+            <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+
+        </div>
         <input type="submit" value="Enregistrer">
     </form>
-
+    </div>
 </div>
 
 <hr>

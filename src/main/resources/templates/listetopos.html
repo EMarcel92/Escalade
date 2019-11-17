@@ -36,7 +36,7 @@
                             <tr scope="row" th:each="topo : ${topos}">
                                 <td th:text="${topo.nomTopo}"></td>
                                 <td th:text="${topo.descritpionTopo}"></td>
-                                <td th:text="${topo.dateParution}"></td>
+                                <td th:text="${topo.dateParution}"></td>  <!--<p th:utext="${#calendars.format(topo.dateParution, 'dd MM yyyy')}"></p>-->
                                 <td th:text="${topo.region.nomRegion}"></td>
                                 <td th:text="${topo.utilisateur.pseudo}"></td>
                                 <td th:class="${topo.disponible}? 'text-success' : 'text-danger'" th:utext="${topo.disponible}? 'Oui' : 'Non'"></td>
@@ -47,19 +47,11 @@
                         </table>
                     </div>
                 </div>
-                <a class="btn btn-primary" href="/signup" role="button">s'identifier <i class="fas fas fa-user-check ml-2"></i></a>
+                <a class="btn btn-primary" href="/login" role="button">s'identifier <i class="fas fas fa-user-check ml-2"></i></a>
                 <a class="mx-3 btn btn-primary" href="/formulairetopo" role="button">Ajouter Topo <i class="far fa-plus-square ml-2"></i></a>
             </div>
         </div>
     </div>
-
-
-    <div th:each ="topo : ${topos}">
-        <H4 th:utext="'nom : ' + ${topo.nomTopo}">...</H4>
-        <H5 th:utext="${topo.descritpionTopo}">...</H5>
-        <p th:utext="${#calendars.format(topo.dateParution, 'dd MM yyyy')}"></p>
-    </div>
-    <hr>
 
 </div>
 <br/>

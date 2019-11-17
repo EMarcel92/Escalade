@@ -14,14 +14,18 @@ import java.util.HashSet;
 @Service
 public class UtilisateurServiceImpl implements UtilisateurService{
 
-    private static final Logger log = LoggerFactory.getLogger(UtilisateurServiceImpl.class);
+    private UtilisateurRepository utilisateurRepository;
+    private RoleRepository roleRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private UtilisateurRepository utilisateurRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.utilisateurRepository = utilisateurRepository;
+        this.roleRepository = roleRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(UtilisateurServiceImpl.class);
 
     @Override
     public void save(Utilisateur utilisateur) {

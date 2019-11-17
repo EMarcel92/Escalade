@@ -2,7 +2,6 @@ package com.emmanuel.escalade.controleurs;
 
 import com.emmanuel.escalade.Services.SecurityService;
 import com.emmanuel.escalade.Services.UtilisateurService;
-import com.emmanuel.escalade.Services.UtilisateurServiceImpl;
 import com.emmanuel.escalade.Utilitaires.UtilisateurValidator;
 import com.emmanuel.escalade.model.Utilisateur;
 import org.slf4j.Logger;
@@ -17,21 +16,19 @@ import javax.validation.Valid;
 
 @Controller
 public class UtilisateurControleur {
-    @Autowired
-    private UtilisateurService utilisateurService;
-    @Autowired
-    private SecurityService securityService;
-    @Autowired
-    private UtilisateurValidator utilisateurValidator;
 
-  //  private final UtilisateurServiceImpl utilisateurService;
+    private final UtilisateurService utilisateurService;
+    private final SecurityService securityService;
+    private final UtilisateurValidator utilisateurValidator;
 
     private static final Logger log = LoggerFactory.getLogger(UtilisateurControleur.class);
 
-//    @Autowired
-//    public UtilisateurControleur(UtilisateurServiceImpl utilisateurService) {
-//        this.utilisateurService = utilisateurService;
-//    }
+    @Autowired
+    public UtilisateurControleur(UtilisateurService utilisateurService, SecurityService securityService, UtilisateurValidator utilisateurValidator) {
+        this.utilisateurService = utilisateurService;
+        this.securityService = securityService;
+        this.utilisateurValidator = utilisateurValidator;
+    }
 
     @GetMapping("/login")
     public String AfficherFormulaireLogin(Model model, String error, String logout) {
@@ -39,14 +36,18 @@ public class UtilisateurControleur {
             model.addAttribute("error", "identifiant ou mot de passe invalide");
 
         if (logout != null)
-            model.addAttribute("message", "Vous êtes connecté.");
+            model.addAttribute("message", "Vous êtes déconnecté.");
 
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String Sedeconnecter(Model model) {
+        return "logout";
+    }
+
     @GetMapping("/nouvelutilisateur")
     public String AfficherFormulaireAjoutUtilisateur(Utilisateur utilisateur, Model model) {
-
         return "/ajouterutilisateur";
     }
 

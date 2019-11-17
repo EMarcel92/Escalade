@@ -3,6 +3,7 @@ package com.emmanuel.escalade.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 
 @Entity
 @Table(name = "role")
@@ -15,6 +16,8 @@ public class Role {
     @NotNull
     @Size(max=5)
     private String nomRole;
+    @ManyToMany(mappedBy = "roles")
+    private Collection<Utilisateur> utilisateurs;
 
 
     public Role() {
@@ -24,7 +27,7 @@ public class Role {
         return roleid;
     }
 
-    public void setRoleid(int roleid) {
+    public void setRoleid(Integer roleid) {
         this.roleid = roleid;
     }
 
@@ -34,5 +37,13 @@ public class Role {
 
     public void setNomRole(String nomRole) {
         this.nomRole = nomRole;
+    }
+
+    public Collection<Utilisateur> getUtilisateurs() {
+        return utilisateurs;
+    }
+
+    public void setUtilisateurs(Collection<Utilisateur> utilisateurs) {
+        this.utilisateurs = utilisateurs;
     }
 }

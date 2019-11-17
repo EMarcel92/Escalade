@@ -24,8 +24,10 @@ public class Utilisateur {
     @Column(nullable = false)
     private String motDePasse;
     @Column(nullable = false)
+    @Size(min = 2, max = 50, message = "Nom de 2 à 50 caractères")
     private String nomUtilisateur;
     @Column(nullable = false)
+    @Size(min = 2, max = 50, message = "Prénom de 2 à 50 caractères")
     private String prenomUtilisateur;
     @Column(nullable = false)
     private String email;

@@ -4,7 +4,6 @@
     color: green;
 }
 
-/* card-columns permet d'avoir un nb de colonnes déterminé en fonction de la largeur d'écran dans les pavages "fluides" */
 @media (min-width: 576px) {
     .card-columns {
         column-count: 1;
@@ -22,7 +21,6 @@
         color:green;
     }
 }
-
 
 @media (min-width: 992px) {
     .card-columns {

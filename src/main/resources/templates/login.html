@@ -4,20 +4,25 @@
 
 <body>
 <header th:replace="generique :: nav"></header>
-<H1 class="monTitre">Page de LOGIN USER (login.html)</H1>
+
 
 <div class="container">
-
+    <H1 class="monTitre">Page de LOGIN USER (login.html)</H1>
     <form action="#" method="post" th:action="@{/login}">
         <label for="pseudo">Identifiant</label>
         <input id="pseudo" placeholder="Pseudo" th:field="*{pseudo}" type="text " required="required" autofocus="autofocus"/>
-        <label for="motdepasse">Mot de passe</label>
-        <input id="motdepasse" placeholder="mot de passe" required="required" th:field="*{motDePasse}" type="password"/>
+
+
+
+            <label for="motdepasse">Mot de passe</label>
+            <input id="motdepasse" placeholder="mot de passe" th:field="*{motDePasse}" required="required" type="password"/>
+
+
+
         <input type="submit" value="S'identifier">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />  <!--Protection Cross-Site Request Forgery-->
     </form>
-    <a type="button" class="btn" role="button" href="/nouvelutilisateur">S'inscrire</a>
-    <h4 class="text-center"><a href="/nouvelutilisateur">Créer un compte</a></h4>
+    <a href="/nouvelutilisateur">Créer un compte</a>
 </div>
 
 <hr>

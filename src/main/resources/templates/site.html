@@ -9,9 +9,10 @@
     <div class="row align-items-center">
         <img class="rounded col-md-3" th:src="@{'/img/' + ${site.photo}}" th:title="${site.nomSite}" alt="..."/>
         <div class="col-sm-12 col-md-6">
-            <div class="row justify-content-end">
-                <img class="col-sm-6 col-md-3" th:src="@{/img/officiel.png}" alt="site officiel"/>
+            <div class="row justify-content-center">
+                <img class="col-sm-6 col-md-3 " th:src="@{/img/officiel.png}" alt="site officiel"/>
             </div>
+            <br>
             <P th:text="${site.descriptionSite}"></P>
             <P>Difficulté : de <strong th:text="${site.cotationMin}"></strong> à <strong th:text="${site.cotationMax}"></strong></P>
             <P th:text="${site.region.nomRegion}"></P>
@@ -33,7 +34,7 @@
         <div>
             <th:block th:each="commentaire : ${site.commentaires}">
                 <p>
-                    <strong th:text="${commentaire.utilisateur.pseudo}"></strong>
+                    <small th:text="${commentaire.utilisateur.pseudo}"></small>
                     <i> le </i>
 <!--                    <i th:text="${#calendars.format(commentaire.dateRedaction,'dd MMM yyyy - HH:mm')}"></i>-->
                     <i th:text= "${#temporals.format(commentaire.dateRedaction,'dd MMM yyyy - HH:mm')}"></i>
