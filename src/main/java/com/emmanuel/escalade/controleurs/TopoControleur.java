@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.Console;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,14 @@ public class TopoControleur {
     public String listeTopos(Model model) {
         log.info("TopoControleur");
         model.addAttribute("topos", topoRepository.findAll());
+        return "listetopos";
+    }
+
+    @GetMapping("/listetopos/utilisateur")
+    public String listeToposDunUtilisateur(Principal principal, Model model) {
+        log.info("Topos d'un utilisateur");
+        List<Topo> topos = topoRepository.findByUtilisateurPseudo(principal.getName());
+        model.addAttribute("topos", topos);
         return "listetopos";
     }
 

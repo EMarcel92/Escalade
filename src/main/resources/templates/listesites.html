@@ -7,7 +7,7 @@
 <header th:replace="generique :: nav"></header>
 <div class="container">
     <br/>
-    <h2>Sites d'escalade</h2>
+    <h2 class="monTitre">Sites d'escalade</h2>
     <hr/>
 
     <form action="#" method="post" th:action="@{/recherchersites}" th:object="${siteCriteres}">
@@ -117,10 +117,6 @@
                     <div th:case="*">inconnue</div>
                 </div>
 
-
-
-<!--                    <div class="progress-bar" role="progressbar" style="width: 33%"  aria-valuemin="0" aria-valuemax="100">4b</div>-->
-<!--                    <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">22</div>-->
                 <p class="card-text" ><small class="text-muted" th:utext="${site.region.nomRegion}">Alpes</small></p>
             </div>
         </div>
@@ -137,62 +133,11 @@
                 <p class="card-text"><small class="text-muted">Alpes</small></p>
             </div>
         </div>
-        <div class="card">
-            <img src="http://lorempixel.com/200/200/nature/2" class="card-img-top" alt="..."/>
-            <div class="card-body">
-                <h5 class="card-title">La falaise de la muerta</h5>
-                <P class="card-text">Site d&acute;une grande compexité réservé aux pros.</P>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">5c</div>
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">9a</div>
-                </div>
-                <p class="card-text"><small class="text-muted">Alpes</small></p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="http://lorempixel.com/200/200/nature/2" class="card-img-top" alt="..."/>
-            <div class="card-body">
-                <h5 class="card-title">La falaise de la muerta</h5>
-                <P class="card-text">Site d&acute;une grande compexité réservé aux pros.</P>
-                <div class="progress">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">5c</div>
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">9a</div>
-                </div>
-                <p class="card-text"><small class="text-muted">Alpes</small></p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="http://lorempixel.com/200/200/nature/3" class="card-img-top" alt="..."/>
-            <div class="card-body">
-                <h5 class="card-title">La montée infernalerrrr</h5>
-                <P class="card-text">Site présentant une complexité graduelle. Un plaisir pour les débutants comme les confirmés.</P>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">4b</div>
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 40%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">8a</div>
-                </div>
-                <p class="card-text"><small class="text-muted">Alpes</small></p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="http://lorempixel.com/200/200/nature/4" class="card-img-top" alt="..."/>
-            <div class="card-body">
-                <h5 class="card-title">La montée infernale</h5>
-                <P class="card-text">Site présentant une complexité graduelle. Un plaisir pour les débutants comme les confirmés.</P>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">4b</div>
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 40%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">8a</div>
-                </div>
-                <p class="card-text"><small class="text-muted">Alpes</small></p>
-            </div>
-        </div>
         -->
     </div>
 </div>
 
 <footer th:replace="generique.html :: footer"></footer>
 
-<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js/"></script>
-<script type="text/javascript" src="webjars/popper.js/1.14.3/popper.min.js"></script>
-<script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

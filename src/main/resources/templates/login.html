@@ -10,17 +10,16 @@
     <H1 class="monTitre">Page de LOGIN USER (login.html)</H1>
     <form action="#" method="post" th:action="@{/login}">
         <label for="pseudo">Identifiant</label>
-        <input id="pseudo" placeholder="Pseudo" th:field="*{pseudo}" type="text " required="required" autofocus="autofocus"/>
+        <!--        <input id="pseudo" placeholder="Pseudo" th:field="*{pseudo}" type="text " required="required" autofocus="autofocus"/>-->
+        <input autofocus="autofocus" id="pseudo" name="pseudo" placeholder="Pseudo" required="required" type="text "/>
 
-
-
-            <label for="motdepasse">Mot de passe</label>
-            <input id="motdepasse" placeholder="mot de passe" th:field="*{motDePasse}" required="required" type="password"/>
-
-
+        <label for="motdepasse">Mot de passe</label>
+        <!--            <input id="motdepasse" placeholder="mot de passe" th:field="*{motDePasse}" required="required" type="password"/>-->
+        <input id="motdepasse" placeholder="mot de passe" required="required" name="motDePasse" type="password"/>
 
         <input type="submit" value="S'identifier">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />  <!--Protection Cross-Site Request Forgery-->
+        <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+        <!--Protection Cross-Site Request Forgery-->
     </form>
     <a href="/nouvelutilisateur">Créer un compte</a>
 </div>
@@ -29,8 +28,5 @@
 
 <footer th:replace="generique :: footer"></footer>
 
-<script src="/webjars/jquery/3.3.1/jquery.min.js/" type="text/javascript"></script>
-<script src="/webjars/popper.js/1.14.3/popper.min.js" type="text/javascript"></script>
-<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>
