@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://thymeleaf.org">
+<html lang="fr" xmlns:th="http://thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="generique :: head"></head>
 
 <body>
@@ -13,15 +14,96 @@
                 <img class="col-sm-6 col-md-3 " th:src="@{/img/officiel.png}" alt="site officiel"/>
             </div>
             <br>
-            <P th:text="${site.descriptionSite}"></P>
-            <P>Difficulté : de <strong th:text="${site.cotationMin}"></strong> à <strong th:text="${site.cotationMax}"></strong></P>
-            <P th:text="${site.region.nomRegion}"></P>
+            <P class="font-weight-bold" th:text="${site.descriptionSite}"></P>
+            <P>Cotations : de <span class="badge badge-pill badge-primary" th:text="${site.cotationMin}">2a</span> à <span class="badge badge-pill badge-primary" th:text="${site.cotationMax}">2c</span></P>
+            <P><em class="text-muted" th:text="${site.region.nomRegion}"></em></P>
         </div>
     </div>
-    <hr>
+    <br>
+
+    <h4>Secteurs</h4>
+    <div class="accordion" id="accordionSecteur">
+        <div class="card" th:each="secteur : ${site.secteurs}">
+            <div class="card-header" th:attr="id='secteur' + ${secteur.secteurid}">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" th:attr="data-target='#collapseSecteur' + ${secteur.secteurid}, aria-controls='collapseSecteur' + ${secteur.secteurid}" aria-expanded="true">
+                        <span th:utext="${secteur.nomSecteur}"></span>
+                    </button>
+                </h2>
+            </div>
+            <div th:attr="id='collapseSecteur' + ${secteur.secteurid}, aria-labelledby='secteur' + ${secteur.secteurid}" class="collapse" data-parent="#accordionSecteur">
+                <div class="card-body">
+                    <th:block th:switch="${#lists.size(secteur.voies)}">
+                        <P th:case=0>Aucun secteur répertorié sur ce site !</P>
+                        <table th:case="*" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Voie</th>
+                                    <th scope="col">Cotation</th>
+                                    <th scope="col">Points</th>
+                                    <th scope="col">Longeurs</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr scope="row" th:each="voie : ${secteur.voies}">
+                                    <td th:text="${voie.nomVoie}">Nom de voie</td>
+                                    <td th:text="${voie.cotationVoie}">2b</td>
+                                    <td th:text="${voie.nbPointsVoie}">5</td>
+                                    <td><a href="#" th:text="${#lists.size(voie.longueurs)}"  th:if="${not #lists.isEmpty(voie.longueurs)}" data-toggle="modal" th:attr="data-target='#listelongueurs' + ${voie.voieid}">2</a>
+                                        <div class="modal fade" th:attr="id='listelongueurs' + ${voie.voieid}" tabindex="-1" role="dialog" aria-labelledby="TitreModaleLongueurs" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="titreModaleLongueurs">Longueurs</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table  table-sm table-dark">
+                                                            <thead>
+                                                            <tr>
+                                                                <th scope="col">Longueur</th>
+                                                                <th scope="col">Cotation</th>
+                                                                <th scope="col">Points</th>
+                                                                <th scope="col"></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr scope="row" th:each="longueur : ${voie.longueurs}">
+                                                                <td th:text="${longueur.nomLongueur}">Nom de voie</td>
+                                                                <td th:text="${longueur.cotationLongueur}">2b</td>
+                                                                <td th:text="${longueur.nbPointsLongueur}">5</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div> <!--modal_body-->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary">Ajouter</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+<!--todo trier par date et supprimer Manu en dur-->
+    <h4>Commentaires sur ce site</h4>
     <div>
-        <H4>Laissez un commentaires</H4>
-        <form action="#" th:action="@{/ajoutercommentaire}" method="post">
+        <form action="#" th:action="@{/ajoutercommentaire}" method="post" sec:authorize="hasAuthority('user')">
+            <hr>
+            <H3>Laissez un commentaires</H3>
             <div class="input-group mb-3">
                 <input id="siteid" name="siteid" type="hidden" th:value="${site.siteid}">
                 <input type="text" name="texteCommentaire" class="form-control" placeholder="Votre commentaire..." aria-label="" aria-describedby="bouton-ajouter">
@@ -34,10 +116,9 @@
         <div>
             <th:block th:each="commentaire : ${site.commentaires}">
                 <p>
-                    <small th:text="${commentaire.utilisateur.pseudo}"></small>
-                    <i> le </i>
-<!--                    <i th:text="${#calendars.format(commentaire.dateRedaction,'dd MMM yyyy - HH:mm')}"></i>-->
-                    <i th:text= "${#temporals.format(commentaire.dateRedaction,'dd MMM yyyy - HH:mm')}"></i>
+                    <strong th:text="${commentaire.utilisateur.pseudo}"></strong>
+                    <small class="font-weight-light"> le </small>
+                    <small class="font-weight-light" th:text="${#temporals.format(commentaire.dateRedaction,'dd MMM yyyy - HH:mm')}"></small>
                 </p>
                 <P class="col-md-10 offset-md-1" th:text="${commentaire.texteCommentaire}"></P>
                 <hr>
