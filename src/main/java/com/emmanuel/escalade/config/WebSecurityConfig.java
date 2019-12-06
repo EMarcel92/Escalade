@@ -15,8 +15,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private UserDetailServiceImpl userDetailsService;
+
+    @Autowired
+    public WebSecurityConfig(UserDetailServiceImpl userDetailServiceImpl) {
+        this.userDetailsService = userDetailServiceImpl;
+    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -26,7 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/","/nouvelutilisateur", "/css/**", "/img/**","/webjars/**").permitAll()
+                .antMatchers("/","/nouvelutilisateur", "/listetopos", "/listesites", "/site/*",
+                        "/recherchersites", "/css/**", "/img/**","/webjars/**").permitAll()
                 .antMatchers("/topo").hasAuthority("user")
                 .anyRequest().authenticated()
                 .and()
@@ -34,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/login")
                     .usernameParameter("pseudo")
                     .passwordParameter("motDePasse")
-                    .successForwardUrl("/")
+                 //   .successForwardUrl("/")
                     .failureForwardUrl("/login-error")
                     .permitAll()
                 .and()
@@ -55,13 +60,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
-
-//    @Bean
-//    public DaoAuthenticationProvider authProvider(){
-//        final DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-//        authProvider.setUserDetailsService(userDetailsService);
-//        authProvider.setPasswordEncoder(passwordEncoder());
-//        return authProvider;
-//    }
-
 }

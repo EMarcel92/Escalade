@@ -2,6 +2,7 @@ package com.emmanuel.escalade.Services;
 
 import com.emmanuel.escalade.DAO.RoleRepository;
 import com.emmanuel.escalade.DAO.UtilisateurRepository;
+import com.emmanuel.escalade.model.Role;
 import com.emmanuel.escalade.model.Utilisateur;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.Optional;
 
 @Service
 public class UtilisateurServiceImpl implements UtilisateurService{
@@ -30,9 +32,12 @@ public class UtilisateurServiceImpl implements UtilisateurService{
     @Override
     public void save(Utilisateur utilisateur) {
         utilisateur.setMotDePasse(bCryptPasswordEncoder.encode(utilisateur.getMotDePasse()));
-        utilisateur.setRoles(new HashSet<>(roleRepository.findAll()));
-        utilisateurRepository.save(utilisateur);
 
+        Optional<Role> monRole = roleRepository.findById(2);
+        utilisateur.setRoles(Arrays.asList(monRole.get()));
+
+
+        utilisateurRepository.save(utilisateur);
     }
 
     @Override

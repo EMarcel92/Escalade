@@ -1,6 +1,9 @@
 package com.emmanuel.escalade.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "longueur")
@@ -9,8 +12,11 @@ public class Longueur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "longueurid")
     private Integer longueurid;
+    @NotBlank(message = "Nom obligatoire")
     private String nomLongueur;
     private String cotationLongueur;
+    @Max(9)
+    @NotNull(message = "Nombre de points obligatoire")
     private Integer nbPointsLongueur;
     @ManyToOne
     @JoinColumn(name="voieid", nullable=false)

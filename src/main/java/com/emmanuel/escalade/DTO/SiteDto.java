@@ -9,8 +9,6 @@ public class SiteDto implements Serializable {
     private String photo;
     private Boolean tagOfficiel;
     private String nomRegion;
- //   private String cotationMin;
-//    private String cotationMax;
 
     public SiteDto() {
     }
@@ -21,7 +19,6 @@ public class SiteDto implements Serializable {
         this.photo = photo;
         this.tagOfficiel = tagOfficiel;
         this.nomRegion = nomRegion;
-   //     this.cotationMin = cotationMin;
     }
 
     public String getNomSite() {
@@ -64,11 +61,4 @@ public class SiteDto implements Serializable {
         this.nomRegion = nomRegion;
     }
 
-//    public String getCotationMin() {
-//        return cotationMin;
-//    }
-//
-//    public void setCotationMin(String cotationMin) {
-//        this.cotationMin = cotationMin;
-//    }
 }

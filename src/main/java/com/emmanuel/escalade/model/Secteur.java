@@ -1,6 +1,8 @@
 package com.emmanuel.escalade.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -11,6 +13,8 @@ public class Secteur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "secteurid")
     private Integer secteurid;
+    @NotBlank(message = "Nom de secteur obligatoire")
+    @Size(min = 3, max = 10)
     private String nomSecteur;
     @ManyToOne
     @JoinColumn(name="siteid", nullable=false)

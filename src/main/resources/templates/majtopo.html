@@ -6,18 +6,18 @@
 <header th:replace="generique :: nav"></header>
 
 <div class="container">
-    <H1 class="monTitre">Mettre à jour un topo. </H1>
+    <H3 class="monTitre">Mettre à jour un topo. </H3>
     <form action="#" th:action="@{/sauvertopo/{id}(id=${topo.topoId})}" th:object="${topo}" method="post">
         <!--<div class="form-group" >-->
             <label for="nomTopo">Nom</label>
             <input type="text" th:field="*{nomTopo}" id="nomTopo" placeholder="nomTopo" th:value="*{descritpionTopo}">
-            <!--<span th:if="${#fields.hasErrors('nomtopo')}" th:errors="*{nomTopo }"></span>-->
+            <span class="text-danger" th:if="${#fields.hasErrors('nomTopo')}" th:errors="*{nomTopo }"></span>
             <label for="descritpionTopo">Description</label>
             <input type="text" th:field="*{descritpionTopo}" id="descritpionTopo" placeholder="descritpionTopo">
-            <!--<span th:if="${#fields.hasErrors('descritpionTopo')}" th:errors="*{descritpionTopo}"></span>-->
+            <span class="text-danger" th:if="${#fields.hasErrors('descritpionTopo')}" th:errors="*{descritpionTopo}"></span>
             <label for="dateParution">Date parution</label>
             <input type="date" th:field="*{dateParution}" id="dateParution" placeholder="dateParution">
-            <!--<span th:if="${#fields.hasErrors('dateParution')}" th:errors="*{dateParution}"></span>-->
+            <span class="text-danger" th:if="${#fields.hasErrors('dateParution')}" th:errors="*{dateParution}"></span>
             <label for="disponible">Disponibilité</label>
             <input type="checkbox" th:field="*{disponible}" id="disponible" placeholder="disponible">
             <label for="region">Région</label>
@@ -25,7 +25,7 @@
                 <option th:each="region : ${regions}" th:value="${region.regionId}" th:text="${region.nomRegion}")>Alpes </option>
             </select>
             <label for="utilisateur">Utilisateur</label>
-            <input type="text" th:field="*{utilisateur}" id="utilisateur" placeholder="menbre" th:value="*{utilisateur.pseudo}">
+            <input type="text" th:field="*{utilisateur}" id="utilisateur" placeholder="pseudo" th:value="*{utilisateur.pseudo}">
 
             <input type="submit" value="Valider">
        <!-- </div>-->

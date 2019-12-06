@@ -45,20 +45,24 @@ public class TopoControleur {
 
     @GetMapping("/listetopos/utilisateur")
     public String listeToposDunUtilisateur(Principal principal, Model model) {
-        log.info("Topos d'un utilisateur");
+        log.info("Liste topos d'un utilisateur");
         List<Topo> topos = topoRepository.findByUtilisateurPseudo(principal.getName());
         model.addAttribute("topos", topos);
         return "listetopos";
     }
 
+    @GetMapping("/formulairetopo")
+    public String afficherFormulaireAjoutTopo(Topo topo,Model model) {
+        model.addAttribute("regions", regionRepository.findAll());
+        return "ajoutertopo";
+    }
+
     @PostMapping("/ajoutertopo")
-    public String ajouterTopo (@Valid @ModelAttribute("topo") Topo topo, BindingResult result, Model model) {
+    public String ajouterTopo (@Valid @ModelAttribute("topo") Topo topo, BindingResult result, Principal principal, Model model) {
         if (result.hasErrors()) {
             return "ajoutertopo";
         }
-        //todo vérifer que l'utilisateur est connecté, sinon rediriger vers login
-        //todo récupérer l'user connecté et supprimer la ligne suivante
-        Utilisateur utilisateur = utilisateurRepository.findById(2).get();
+        Utilisateur utilisateur = utilisateurRepository.findByPseudo(principal.getName());
         topo.setUtilisateur(utilisateur);
        // utilisateurRepository.save(utilisateur);
         topoRepository.save(topo);
@@ -68,7 +72,7 @@ public class TopoControleur {
 
     @GetMapping("/majtopo/{id}")
     public String mettreAJourTopo(@PathVariable("id") Integer id, Model model) {
-        // PathVariable récupère l'id dans l'URI et le met dana l'integer id
+        // PathVariable récupère l'id dans l'URI et le met dans l'integer id
         //Pour récupérer une variable passée en paramètre dans l'URL, utiliser @RequestParam
         //ex : @RequestParam(value = "date", required = false) Date dateOrNull)
         Topo topo = topoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Identifiant topo inconnu : " + id));
@@ -94,11 +98,6 @@ public class TopoControleur {
         return "topo";
     }
 
-    @GetMapping("/formulairetopo")
-    public String afficherFormulaireAjoutTopo(Topo topo,Model model) {
-        model.addAttribute("regions", regionRepository.findAll());
-        return "ajoutertopo";
-    }
 
     @GetMapping("/supprimertopo/{id}")
     public String supprimerTopo(@PathVariable("id") Integer id, Model model){

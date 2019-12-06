@@ -5,9 +5,9 @@
 <body>
 <header th:replace="generique :: nav"></header>
 
-
 <div class="container">
-    <H1 class="monTitre">Page de LOGIN USER (login.html)</H1>
+    <H4 class="monTitre">Pour accéder à l'ensemble du site, inscrivez-vous, c'est gratuit !</H4>
+    <br>
     <form action="#" method="post" th:action="@{/login}">
         <label for="pseudo">Identifiant</label>
         <!--        <input id="pseudo" placeholder="Pseudo" th:field="*{pseudo}" type="text " required="required" autofocus="autofocus"/>-->
@@ -21,6 +21,7 @@
         <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
         <!--Protection Cross-Site Request Forgery-->
     </form>
+    <br>
     <a href="/nouvelutilisateur">Créer un compte</a>
 </div>
 

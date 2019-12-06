@@ -2,9 +2,7 @@ package com.emmanuel.escalade.Services;
 
 import com.emmanuel.escalade.DAO.*;
 import com.emmanuel.escalade.DTO.SiteCriteres;
-import com.emmanuel.escalade.model.Commentaire;
-import com.emmanuel.escalade.model.Site;
-import com.emmanuel.escalade.model.Utilisateur;
+import com.emmanuel.escalade.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +52,21 @@ public class SiteService {
         return (resultat.isPresent()?resultat.get():null);
     }
 
+    public Secteur findSecteurById (int id){
+        Optional<Secteur> resultat = secteurRepository.findById(id);
+        return (resultat.isPresent()?resultat.get():null);
+    }
+
+    public Voie findVoieById (int id){
+        Optional<Voie> resultat = voieRepository.findById(id);
+        return (resultat.isPresent()?resultat.get():null);
+    }
+
+    public Longueur findLongueurById (int id){
+        Optional<Longueur> resultat = longueurRepository.findById(id);
+        return (resultat.isPresent()?resultat.get():null);
+    }
+
     public Iterable<Site> findAll() {
         Iterable<Site> maListe = siteRepository.findAll();
         return maListe;
@@ -65,11 +78,10 @@ public class SiteService {
     }
 
 
-    public void sauverCommentaire(String texteCommentaire, Integer siteid) {
+    public void sauverCommentaire(String texteCommentaire, Integer siteid, Utilisateur utilisateur) {
         Commentaire commentaire = new Commentaire();
         commentaire.setTexteCommentaire(texteCommentaire);
         commentaire.setSite(siteRepository.findById(siteid).get());
-        Utilisateur utilisateur = utilisateurRepository.findById(1).get();
         commentaire.setUtilisateur(utilisateur);
         commentaire.setDateRedaction(LocalDateTime.now());
         commentaireRepository.save(commentaire);

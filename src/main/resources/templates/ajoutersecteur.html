@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://thymeleaf.org"
+>
+<head th:replace="generique :: head"></head>
+
+<body>
+<header th:replace="generique :: nav"></header>
+<div class="container">
+    <H3 class="monTitre">Nouveau secteur</H3>
+
+    <form action="#" th:action="@{/ajoutersecteur/{siteid}(siteid=${siteid})}" th:object="${secteur}" method="post">
+        <div class="form-group">
+            <label for="nomSecteur">Nom</label>
+            <input type="text" th:field="*{nomSecteur}" placeholder="Nom du secteur">
+            <span class="text-danger" th:if="${#fields.hasErrors('nomSecteur')}" th:errors="*{nomSecteur}"></span>
+            <input type="hidden" th:value="${siteid}" name="siteid"/>
+        </div>
+        <input type="submit" value="Ajouter">
+    </form>
+</div>
+
+<footer th:replace="generique :: footer"></footer>
+
+</body>
+</html>

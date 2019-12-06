@@ -1,6 +1,11 @@
 package com.emmanuel.escalade.model;
 
+import org.springframework.beans.factory.annotation.Required;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,6 +16,9 @@ public class Commentaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="commentaireid")
     private int commentaireId;
+   // @NotNull
+ //   @NotBlank
+    @Size(min =1 , max = 250)
     private String texteCommentaire;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime dateRedaction;

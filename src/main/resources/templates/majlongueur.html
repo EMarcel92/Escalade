@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://thymeleaf.org"
+>
+<head th:replace="generique :: head"></head>
+
+<body>
+<header th:replace="generique :: nav"></header>
+<div class="container">
+    <H3 class="monTitre">Modification de longueur</H3>
+
+    <form action="#" th:action="@{/modifierlongueur/{longueurid}(longueurid=${longueur.longueurid})}" th:object="${longueur}" method="post">
+        <div class="form-group">
+            <label for="nomLongueur">Nom</label>
+            <input type="text" th:field="*{nomLongueur}">
+            <span class="text-danger" th:errors="*{nomLongueur}" th:if="${#fields.hasErrors('nomLongueur')}"></span>
+            <label for="cotationLongueur">Cotation</label>
+            <input type="text" th:field="*{cotationLongueur}">
+            <span class="text-danger" th:errors="*{cotationLongueur}" th:if="${#fields.hasErrors('cotationLongueur')}"></span>
+            <label for="nbPointsLongueur">Points</label>
+            <input type="text" th:field="*{nbPointsLongueur}">
+            <span class="text-danger" th:errors="*{nbPointsLongueur}" th:if="${#fields.hasErrors('nbPointsLongueur')}"></span>
+            <input type="hidden" th:field="*{voie.voieid}" name="voieid"/>
+        </div>
+        <input type="submit" value="Modifier">
+    </form>
+
+</div>
