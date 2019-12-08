@@ -1,44 +1,19 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Topo</title>
-    <meta name="description" content="Site officiel des Amis de l'Escalade">
-    <meta name="keywords" content="escalade, topo, grimpeur">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-</head>
+<html lang="fr" xmlns:th="http://thymeleaf.org">
+<head th:replace="generique :: head"></head>
 
 <body>
 <header th:replace="generique :: nav"></header>
-<H1 class="monTitre">Page d'ERREUR</H1>
+
 
 <div class="container">
-    <p>début de paragraphe</p>
-    <!--<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">-->
-        <!--<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>-->
-    <!--</div>-->
-    <!---->
-
-    <h1 th:text="${errorCode}"></h1>
+    <H3 class="monTitre">Page d'ERREUR</H3>
+    <h4 th:text="${errorCode}"></h4>
     <p th:utext="${errorMessage}"></p>
-    Current time is <span th:text="${serverTime}" />
-
 
     <h2 th:text="${status + ' ' + error}"></h2>
-    <!--<ul>-->
-        <!--<li th:each="err : ${#fields.errors('*')}" th:utext="${err}" />-->
-    <!--</ul>-->
 
-    <!--<ul>-->
-        <!--<li th:errors="*{id}">aa</li>-->
-        <!--<li th:errors="*{name}">bb</li>-->
-    <!--</ul>-->
-
-    <table>
+<!--    <table class="table table-striped">-->
         <tr>
             <td>Date</td>
             <td th:text="${timestamp}"/>
@@ -69,10 +44,9 @@
                 <pre th:text="${trace}"/>
             </td>
         </tr>
-    </table>
+<!--    </table>-->
 
     <a href="/" th:href="@{/signup}">Retour à la page d'authentification</a>
-    <p>Fin de paragraphe</p>
 
 </div>
 
@@ -80,8 +54,5 @@
 
 <footer th:replace="generique :: footer"></footer>
 
-<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js/"></script>
-<script type="text/javascript" src="webjars/popper.js/1.14.3/popper.min.js"></script>
-<script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

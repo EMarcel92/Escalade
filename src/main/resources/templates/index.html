@@ -9,13 +9,10 @@
 <div class="container">
 
     <P sec:authorize="isAnonymous()">Utilisateur anonyme</P>
-    <P sec:authorize="isAuthenticated()" >Utilisateur authentifié</P>
+    <P sec:authorize="isAuthenticated()">Utilisateur authentifié</P>
     <P sec:authorize="hasAuthority('user')" >profil user</P>
     <P sec:authorize="hasAuthority('admin')" >profil admin</P>
-    <P sec:authorize="hasRole('user')" >Role user</P>
-    <P sec:authorize="hasRole('admin')" >Role admin</P>
-
-    <H2 class="monTitre">Bienvenue </H2>
+    <p th:text="'Nom : ' + ${#authentication.name}"> </p>
 
     <div class="bd-example">
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">

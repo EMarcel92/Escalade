@@ -1,9 +1,6 @@
 package com.emmanuel.escalade.controleurs;
 
-import com.emmanuel.escalade.DAO.LongueurRepository;
-import com.emmanuel.escalade.DAO.SecteurRepository;
-import com.emmanuel.escalade.DAO.UtilisateurRepository;
-import com.emmanuel.escalade.DAO.VoieRepository;
+import com.emmanuel.escalade.DAO.*;
 import com.emmanuel.escalade.DTO.SiteCriteres;
 import com.emmanuel.escalade.Services.RegionService;
 import com.emmanuel.escalade.Services.SiteService;
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class SiteControleur {
@@ -29,17 +27,19 @@ public class SiteControleur {
     private final VoieRepository voieRepository;
     private final LongueurRepository longueurRepository;
     private final UtilisateurRepository utilisateurRepository;
+    private final CommentaireRepository commentaireRepository;
 
     private static final Logger log = LoggerFactory.getLogger(SiteControleur.class);
 
     @Autowired
-    public SiteControleur(SiteService siteService, RegionService regionService, SecteurRepository secteurRepository, VoieRepository voieRepository, LongueurRepository longueurRepository, UtilisateurRepository utilisateurRepository) {
+    public SiteControleur(SiteService siteService, RegionService regionService, SecteurRepository secteurRepository, VoieRepository voieRepository, LongueurRepository longueurRepository, UtilisateurRepository utilisateurRepository, CommentaireRepository commentaireRepository) {
         this.siteService = siteService;
         this.regionService = regionService;
         this.secteurRepository = secteurRepository;
         this.voieRepository = voieRepository;
         this.longueurRepository = longueurRepository;
         this.utilisateurRepository = utilisateurRepository;
+        this.commentaireRepository = commentaireRepository;
     }
 
   //  @RequestMapping(value = {"/listesites" }, method = RequestMethod.GET)
@@ -67,7 +67,7 @@ public class SiteControleur {
     }
 
     @GetMapping({"/site/{id}"})
-    public String unSite(@PathVariable("id") Integer id, Model model) {
+    public String afficherUnSite(@PathVariable("id") Integer id, Model model) {
         Site site = siteService.findById(id);
         //todo trier les commentaires par date décroissante
         model.addAttribute("site", site);
@@ -82,6 +82,29 @@ public class SiteControleur {
         siteService.sauverCommentaire(texteCommentaire, siteid, utilisateur);
         return "redirect:/site/" + siteid;
     }
+
+    @PostMapping("/modifiercommentaire/{commentaireid}")
+    public String ModifierCommentaire(@PathVariable("commentaireid") int commentaireid, @Valid Commentaire commentaire,
+                                  BindingResult result, Model model) {
+        Optional<Commentaire> commentaireBDD = commentaireRepository.findById(commentaireid);
+        if (commentaireBDD.isPresent()){
+            commentaire.setCommentaireId(commentaireBDD.get().getCommentaireId());
+            commentaire.setDateRedaction(commentaireBDD.get().getDateRedaction());
+            commentaire.setSite(commentaireBDD.get().getSite());
+            commentaire.setUtilisateur(commentaireBDD.get().getUtilisateur());
+            commentaireRepository.save(commentaire);
+        }
+        return "redirect:/site/" + commentaire.getSite().getSiteid();
+    }
+
+    @GetMapping("/supprimercommentaire/{commentaireid}")
+    public String supprimerCommentaire(@PathVariable("commentaireid") int commentaireid){
+        Commentaire commentaire = commentaireRepository.findById(commentaireid)
+                .orElseThrow(() -> new IllegalArgumentException("Commentaire à supprimer n°" + commentaireid + "inconnu"));
+        commentaireRepository.delete(commentaire);
+        return "redirect:/site/" + commentaire.getSite().getSiteid();
+    }
+
 
     @GetMapping("/ajoutersecteur/{siteid}")
     public String afficherFomulaireAjouterSecteur(@PathVariable("siteid") int siteid, Secteur secteur, Model model){
@@ -170,9 +193,6 @@ public class SiteControleur {
         return "redirect:/site/" + voie.getSecteur().getSite().getSiteid();
     }
 
-
-
-
     @GetMapping("/ajouterlongueur/{voieid}")
     public String afficherFomulaireAjouterLongueur(@PathVariable("voieid") int voieid, Longueur longueur, Model model){
         return "ajouterlongueur";
@@ -213,5 +233,17 @@ public class SiteControleur {
                 .orElseThrow(() -> new IllegalArgumentException("Longueur à supprimer n°" + longueurid + "inconnue"));
         longueurRepository.delete(longueur);
         return "redirect:/site/" + longueur.getVoie().getSecteur().getSite().getSiteid();
+    }
+
+
+
+    @GetMapping("/taguersite/{siteid}")
+    public String taguerSite(@PathVariable("siteid") int siteid) {
+//        if (result.hasErrors()) {
+//            longueur.setLongueurid(longueurid);
+//            return "majlongueur";
+//        }
+        siteService.changerTagSite(siteid);
+        return "redirect:/site/" + siteid;
     }
 }

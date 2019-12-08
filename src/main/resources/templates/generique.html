@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="fr">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="fr">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <title>Escalade</title>
@@ -45,7 +45,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuSite">
                         <a class="dropdown-item" href="/listesites">Consulter</a>
-                        <a class="dropdown-item" href="/site">Ajouter</a>
+                        <a class="dropdown-item" href="/site/1">Site du mois</a>
                     </div>
                 </li>
 
@@ -56,15 +56,10 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuTopo">
 
-
-                        <a sec:authorize="hasAuthority('admin')" class="dropdown-item" href="/listetopos/utilisateur">Mes Topos</a>
+                        <a sec:authorize="isAuthenticated()" class="dropdown-item" href="/listetopos/utilisateur">Mes Topos</a>
                         <a class="dropdown-item" href="/listetopos">Tous les Topos</a>
-                        <a class="dropdown-item" href="/formulairetopo">Ajouter un Topo</a>
+                        <a sec:authorize="isAuthenticated()" class="dropdown-item" href="/formulairetopo">Ajouter un Topo</a>
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#"><i class="fas fa-question-circle"></i> Autres (désactivé)</a>
-                    <!-- disabled = grisé et non activable -->
                 </li>
             </ul>
             <ul sec:authorize="!isAuthenticated()" class="navbar-nav ml-auto">     <!--ml-auto = margin-left:auto qui cale une marge max à gauche-->
@@ -72,9 +67,9 @@
                     <a class="nav-link" href="/login"><i class="fas fa-user-check"></i> Connexion</a>
                 </li>
             </ul>
-            <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto">     <!--ml-auto = margin-left:auto qui cale une marge max à gauche-->
+            <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> déconnexion</a>
+                    <a class="nav-link" href="/logout"><span class="fas fa-sign-out-alt"></span> déconnexion <span th:text="'(' + ${#authentication.name} + ')'"></span></a>
                 </li>
             </ul>
 
@@ -92,6 +87,7 @@
     <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </footer>
 
+<!--todo tester l'utilisation ci-dessous de th:src="@{/webjars-->
 <!--
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>

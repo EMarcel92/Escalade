@@ -29,7 +29,6 @@ public class SecurityServiceImpl implements SecurityService{
     public String findLoggedInPseudo() {
         Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
         if (userDetails instanceof UserDetails){
-            //todo getUsername ??
             return ((UserDetails)userDetails).getUsername();
         }
         return null;
@@ -46,6 +45,5 @@ public class SecurityServiceImpl implements SecurityService{
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             logger.debug(String.format("Login réussi pour %s !", pseudo));
         }
-
     }
 }

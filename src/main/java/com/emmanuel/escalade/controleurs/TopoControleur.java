@@ -40,6 +40,7 @@ public class TopoControleur {
     public String listeTopos(Model model) {
         log.info("TopoControleur");
         model.addAttribute("topos", topoRepository.findAll());
+        model.addAttribute("titreTopo", "Topos");
         return "listetopos";
     }
 
@@ -48,6 +49,7 @@ public class TopoControleur {
         log.info("Liste topos d'un utilisateur");
         List<Topo> topos = topoRepository.findByUtilisateurPseudo(principal.getName());
         model.addAttribute("topos", topos);
+        model.addAttribute("titreTopo", "Mes topos");
         return "listetopos";
     }
 
@@ -106,11 +108,4 @@ public class TopoControleur {
         return "redirect:/listetopos";
     }
 
-    //todo test à detruire
-    @GetMapping("/test/{id}")
-    public String test(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("topo", topoRepository.findById(id));
-        //        model.addAttribute("topo", topo);
-        return "test";
-    }
 }

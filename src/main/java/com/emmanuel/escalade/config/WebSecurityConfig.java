@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/nouvelutilisateur", "/listetopos", "/listesites", "/site/*",
                         "/recherchersites", "/css/**", "/img/**","/webjars/**").permitAll()
                 .antMatchers("/topo").hasAuthority("user")
+                .antMatchers("/modifiercommentaire/*", "supprimercommentaire/*").hasAuthority("admin")
                 .anyRequest().authenticated()
                 .and()
                     .formLogin()

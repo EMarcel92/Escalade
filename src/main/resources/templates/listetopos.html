@@ -11,7 +11,7 @@
     <!--   TODO faire un test sur l'utilisateur connecté ou non (Liste des topos ou Mes topos) -->
 
     <h3 sec:authorize="isAuthenticated()" class="my-3 monTitre">Mes Topos (user authentifié)</h3>
-    <h3 sec:authorize="isAuthenticated()" class="my-3 monTitre">Mes Topos (user authentifié)</h3>
+    <h3 class="my-3 monTitre" th:text="${titreTopo}">Mes Topos ou tous les Topos)</h3>
 
 
 

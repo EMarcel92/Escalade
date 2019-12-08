@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://thymeleaf.org"
->
+<html lang="fr" xmlns:th="http://thymeleaf.org">
 <head th:replace="generique :: head"></head>
 
 <body>
@@ -11,7 +10,7 @@
     <form action="#" th:action="@{/modifiersecteur/{secteurid}(secteurid=${secteur.secteurid})}" th:object="${secteur}" method="post">
         <div class="form-group">
             <label for="nomSecteur">Nom</label>
-            <input type="text" th:field="*{nomSecteur}" placeholder="Nom du secteur">
+            <input type="text" th:field="*{nomSecteur}" id="nomSecteur" placeholder="Nom du secteur">
             <span class="text-danger" th:errors="*{nomSecteur}" th:if="${#fields.hasErrors('nomSecteur')}"></span>
             <input type="hidden" th:field="*{site.siteid}" name="siteid"/>
         </div>

@@ -9,7 +9,7 @@
 <div class="container">
     <H3 class="monTitre">Ajouter un topo</H3>
         <form action="#" th:action="@{/ajoutertopo}" th:object="${topo}" method="post">
-            <form:errors path = "*" cssClass = "errorblock" element = "div" />
+<!--            <form:errors path = "*" cssClass = "errorblock" element = "div" />-->
             <div  class="form-group row">
                 <label for="nomTopo" class="col-sm-2 col-form-label">Nom</label>
                 <div class="col-sm-10">
@@ -36,11 +36,6 @@
                     </select>
                 </div>
             </div>
-            <!--        <label for="region">Région</label>-->
-            <!--        <select th:field="*{region}">-->
-            <!--            <option disabled>Choisissez une région...</option>-->
-            <!--            <option th:each="region : ${#numbers.sequence(0, 100)}" th:value="${i}" th:text="${i}" th:selected="${region.regionId==Topo.}")>Banana </option>-->
-            <!--        </select>-->
             <div  class="form-group row">
                 <label for="dateParution" class="col-sm-2 col-form-label">Date parution</label>
                 <div class="col-sm-10">
@@ -49,15 +44,13 @@
                 </div>
             </div>
             <div class="form-group row">
-                <!--<div class="form-check">-->
-                    <div class="col-sm-3">
-                        <label for="disponible" class="form-check-label">Disponibilité</label>
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="checkbox" class="form-check-input" th:field="*{disponible}" id="disponible"
-                           placeholder="disponible">
-                    </div>
-                <!--</div>-->
+                <div class="col-sm-3">
+                    <label for="disponible" class="form-check-label">Disponibilité</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="checkbox" class="form-check-input" th:field="*{disponible}" id="disponible"
+                       placeholder="disponible">
+                </div>
             </div>
 
             <!--        todo supprimer la ligne suivante et tester MAJTopo-->
@@ -72,9 +65,5 @@
 
 <footer th:replace="generique :: footer"></footer>
 
-<!-- Respecter l'ordre des scripts ; jQuery first, then Popper.js, then Bootstrap JS, puis notre propre script.js -->
-<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js/"></script>
-<script type="text/javascript" src="webjars/popper.js/1.14.3/popper.min.js"></script>
-<script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

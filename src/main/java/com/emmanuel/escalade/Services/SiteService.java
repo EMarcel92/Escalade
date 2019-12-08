@@ -77,7 +77,6 @@ public class SiteService {
         return  maListe;
     }
 
-
     public void sauverCommentaire(String texteCommentaire, Integer siteid, Utilisateur utilisateur) {
         Commentaire commentaire = new Commentaire();
         commentaire.setTexteCommentaire(texteCommentaire);
@@ -85,5 +84,13 @@ public class SiteService {
         commentaire.setUtilisateur(utilisateur);
         commentaire.setDateRedaction(LocalDateTime.now());
         commentaireRepository.save(commentaire);
+    }
+
+    public void changerTagSite (int siteid){
+        Site site = findById(siteid);
+        if (site != null){
+            site.setTagOfficiel(!site.getTagOfficiel());
+            siteRepository.save(site);
+        }
     }
 }

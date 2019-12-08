@@ -8,15 +8,20 @@
 <div class="container">
     <H3 class="monTitre" th:text="${site.nomSite}">Nom du SITE</H3>
     <div class="row align-items-center">
-        <img class="rounded col-md-3" th:src="@{'/img/' + ${site.photo}}" th:title="${site.nomSite}" alt="..."/>
+        <img class="rounded col-md-4" th:src="@{'/img/' + ${site.photo}}" th:title="${site.nomSite}" alt="..."/>
         <div class="col-sm-12 col-md-6">
             <br>
             <P class="font-weight-bold" th:text="${site.descriptionSite}"></P>
             <P>Cotations : de <span class="badge badge-pill badge-primary" th:text="${site.cotationMin}">2a</span> à <span class="badge badge-pill badge-primary" th:text="${site.cotationMax}">2c</span></P>
             <P><em class="text-muted" th:text="${site.region.nomRegion}"></em></P>
-            <div class="row justify-content-center">
-                <img class="col-sm-6 col-md-3 " th:if="${site.tagOfficiel}" th:src="@{/img/officiel.png}" alt="site officiel"/>
+        </div>
+        <div class="col-md-2">
+            <div class="row align-self-start">
+                <img class="img-fluid float-right" th:if="${site.tagOfficiel}" th:src="@{/img/officiel.png}" alt="site officiel"/>
             </div>
+            <br>
+            <br>
+            <a class="btn btn-primary btn-sm float-right" sec:authorize="hasAuthority('admin')"  th:href="@{/taguersite/{siteid}(siteid=${site.siteid})}" role="button">Taguer/Détaguer</a>
         </div>
     </div>
     <br>
@@ -106,8 +111,6 @@
                                             </div>
                                         </td>
                                         </th:block>
-
-
                                         <td>
                                             <a th:href="@{/modifiervoie/{voieid}(voieid=${voie.voieid})}" class="far fa-edit" title="Modifier la voie"></a> |
                                             <a th:href="@{/supprimervoie/{voieid}(voieid=${voie.voieid})}" class="far fa-trash-alt" title="Supprimer la voie"></a>
@@ -131,6 +134,7 @@
     <br>
     <br>
 
+    <!--    COMMENTAIRES-->
 <!--todo trier par date et supprimer Manu en dur-->
     <h3>Commentaires sur ce site</h3>
     <div>
@@ -146,6 +150,8 @@
             </div>
         </form>
         <HR>
+
+
         <div>
             <th:block th:each="commentaire : ${site.commentaires}">
                 <p>
@@ -153,7 +159,44 @@
                     <small class="font-weight-light"> le </small>
                     <small class="font-weight-light" th:text="${#temporals.format(commentaire.dateRedaction,'dd MMM yyyy - HH:mm')}"></small>
                 </p>
-                <P class="col-md-10 offset-md-1" th:text="${commentaire.texteCommentaire}"></P>
+                <div class="row">
+                    <P class="col-10 offset-md-1" th:text="${commentaire.texteCommentaire}"></P>
+                    <span sec:authorize="hasAuthority('admin')" class="float-right">
+<!--                        <a class="far fa-edit" th:href="@{/modifiercommentaire/{commentaireid}(commentaireid=${commentaire.commentaireId})}" title="Modifier le commentaire"></a>&nbsp;|&nbsp;-->
+                        <a class="far fa-edit" href="#" title="Modifier le commentaire" data-toggle="modal" th:attr="data-target='#Modale' + ${commentaire.commentaireId}"></a>&nbsp;|&nbsp;
+
+                        <div class="modal fade" th:attr="id='Modale' + ${commentaire.commentaireId}" tabindex="-1" role="dialog" aria-labelledby="coucou" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modifier un commentaire (modérateur)</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Annuler">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+
+
+                                <form action="#" th:action="@{/modifiercommentaire/{commentaireid}(commentaireid=${commentaire.commentaireId})}" th:object="${commentaire}" method="post">
+                                    <div class="form-group">
+                                        <input type="text" th:value="${commentaire.texteCommentaire}" name="texteCommentaire">
+<!--todo activer le span de gestion d'erreur-->
+                                        <!--                                        <span class="text-danger" th:errors="*{texteCommentaire}" th:if="${#fields.hasErrors('texteCommentaire')}"></span>-->
+                                    </div>
+<!--                                        <input type="text" th:value="${commentaire.texteCommentaire}" th:field="*{texteCommentaire}">-->
+                                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-sm btn-primary">Enregistrer</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+                        <a class="far fa-trash-alt" th:href="@{/supprimercommentaire/{commentaireid}(commentaireid=${commentaire.commentaireId})}" title="Supprimer le commentaire"></a>
+                    </span>
+                </div>
                 <hr>
             </th:block>
         </div>
