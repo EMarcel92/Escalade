@@ -38,7 +38,7 @@
                             <span th:utext="${secteur.nomSecteur}"></span>
                         </button>
                     </span>
-                    <span class="float-right">
+                    <span class="float-right" sec:authorize="hasAuthority('user')">
                         <a th:href="@{/modifiersecteur/{secteurid}(secteurid=${secteur.secteurid})}" class="far fa-edit" title="Modifier"></a> |
                         <a th:href="@{/supprimersecteur/{secteurid}(secteurid=${secteur.secteurid})}" class="far fa-trash-alt" title="Supprimer"></a>
                     </span>
@@ -67,7 +67,7 @@
 
                                         <th:block th:switch="${#lists.size(voie.longueurs)}">
                                             <td th:case=0>
-                                                <a th:href="@{/ajouterlongueur/{voieid}(voieid=${voie.voieid})}" class="far fa-plus-square" title="Ajouter une longueur"></a>
+                                                <a th:href="@{/ajouterlongueur/{voieid}(voieid=${voie.voieid})}" class="far fa-plus-square" title="Ajouter une longueur" sec:authorize="hasAuthority('user')"></a>
                                             </td>
                                             <td th:case="*"     ><a href="#" th:text="${#lists.size(voie.longueurs)}" data-toggle="modal" th:attr="data-target='#listelongueurs' + ${voie.voieid}">2</a>
                                             <div class="modal fade" th:attr="id='listelongueurs' + ${voie.voieid}" tabindex="-1" role="dialog" aria-labelledby="TitreModaleLongueurs" aria-hidden="true">
@@ -94,7 +94,7 @@
                                                                     <td th:text="${longueur.nomLongueur}">Nom de voie</td>
                                                                     <td th:text="${longueur.cotationLongueur}">2b</td>
                                                                     <td th:text="${longueur.nbPointsLongueur}">5</td>
-                                                                    <td>
+                                                                    <td sec:authorize="hasAuthority('user')">
                                                                         <a th:href="@{/modifierlongueur/{longueurid}(longueurid=${longueur.longueurid})}" class="far fa-edit" title="Modifier"></a> |
                                                                         <a th:href="@{/supprimerlongueur/{longueurid}(longueurid=${longueur.longueurid})}" class="far fa-trash-alt" title="Supprimer"></a>
                                                                     </td>
@@ -103,7 +103,7 @@
                                                             </table>
                                                         </div> <!--modal-body-->
                                                         <div class="modal-footer">
-                                                            <a type="button" th:href="@{/ajouterlongueur/{voieid}(voieid=${voie.voieid})}" class="btn btn-primary">Ajouter</a>
+                                                            <a type="button" th:href="@{/ajouterlongueur/{voieid}(voieid=${voie.voieid})}" class="btn btn-primary" sec:authorize="hasAuthority('user')">Ajouter</a>
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                                                         </div>
                                                     </div>
@@ -111,7 +111,7 @@
                                             </div>
                                         </td>
                                         </th:block>
-                                        <td>
+                                        <td sec:authorize="hasAuthority('user')">
                                             <a th:href="@{/modifiervoie/{voieid}(voieid=${voie.voieid})}" class="far fa-edit" title="Modifier la voie"></a> |
                                             <a th:href="@{/supprimervoie/{voieid}(voieid=${voie.voieid})}" class="far fa-trash-alt" title="Supprimer la voie"></a>
                                         </td>
@@ -121,7 +121,7 @@
                             </table> <!-- table voies -->
                             </div>
 
-                            <a th:href="@{/ajoutervoie/{secteurid}(secteurid=${secteur.secteurid})}" class="btn btn-primary btn-sm float-right mb-3" role="button">Ajouter voie</a>
+                            <a th:href="@{/ajoutervoie/{secteurid}(secteurid=${secteur.secteurid})}" class="btn btn-primary btn-sm float-right mb-3" role="button" sec:authorize="hasAuthority('user')">Ajouter voie</a>
                         </th:block>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
         </div>  <!-- AccordionSecteur-->
     </th:block>
     <br>
-    <a th:href="@{/ajoutersecteur/{siteid}(siteid=${site.siteid})}" class="btn btn-primary btn-sm float-right" role="button">Ajouter secteur</a>
+    <a th:href="@{/ajoutersecteur/{siteid}(siteid=${site.siteid})}" class="btn btn-primary btn-sm float-right" role="button" sec:authorize="hasAuthority('user')">Ajouter secteur</a>
 
     <br>
     <br>
@@ -162,9 +162,7 @@
                 <div class="row">
                     <P class="col-10 offset-md-1" th:text="${commentaire.texteCommentaire}"></P>
                     <span sec:authorize="hasAuthority('admin')" class="float-right">
-<!--                        <a class="far fa-edit" th:href="@{/modifiercommentaire/{commentaireid}(commentaireid=${commentaire.commentaireId})}" title="Modifier le commentaire"></a>&nbsp;|&nbsp;-->
                         <a class="far fa-edit" href="#" title="Modifier le commentaire" data-toggle="modal" th:attr="data-target='#Modale' + ${commentaire.commentaireId}"></a>&nbsp;|&nbsp;
-
                         <div class="modal fade" th:attr="id='Modale' + ${commentaire.commentaireId}" tabindex="-1" role="dialog" aria-labelledby="coucou" aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">

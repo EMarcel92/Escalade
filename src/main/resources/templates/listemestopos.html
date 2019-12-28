@@ -1,16 +1,14 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="fr" xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:th="http://thymeleaf.org"
-                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="generique :: head"></head>
 
 <body>
 <header th:replace="generique :: nav"></header>
 
 <div class="container">
-
-    <h3 sec:authorize="isAuthenticated()" class="my-3 monTitre">Topos</h3>
-<!--    <h3 class="my-3 monTitre" th:text="${titreTopo}">Mes Topos ou tous les Topos)</h3>-->
+    <h3 sec:authorize="isAuthenticated()" class="my-3 monTitre">Mes Topos</h3>
 
     <div class="container my-2">
         <div class="row">
@@ -27,6 +25,7 @@
                                 <th scope="col">Région</th>
                                 <th scope="col">Membre</th>
                                 <th scope="col">disponible</th>
+                                <th scope="col">Emprunteur</th>
                                 <th scope="col"> </th>
                                 <th scope="col"> </th>
                             </tr>
@@ -39,16 +38,23 @@
                                 <td th:text="${topo.region.nomRegion}"></td>
                                 <td th:text="${topo.utilisateur.pseudo}"></td>
                                 <td th:class="${topo.disponible}? 'text-success' : 'text-danger'" th:utext="${topo.disponible}? 'Oui' : 'Non'"></td>
-                                <td><a th:class="${topo.emprunteur == null}? 'btn btn-success' : 'btn btn-danger'"
-                                       th:href="@{/demanderemprunt/{id}(id=${topo.topoId})}"
-                                       th:title="${topo.emprunteur == null}? 'Demander l&acute;emprunt' : 'Annuler l&acute;emprunt'"
-                                       th:if="${topo.disponible}" sec:authorize="hasAuthority('user')"><i class="far fa-question-circle"></i></a></td>
+
+
+
+
+                                <td th:utext="${topo.emprunteur != null}? ${topo.emprunteur.pseudo} : ''"></td>
+
+
+
+
+                                <td><a class="btn btn-primary" th:href="@{/majtopo/{id}(id=${topo.topoId})}" sec:authorize="hasAuthority('user')"><i class="fas fa-pencil-alt "></i></a></td>
+                                <td><a class="btn btn-primary" th:href="@{/supprimertopo/{id}(id=${topo.topoId})}" sec:authorize="hasAuthority('user')"><i class="far fa-trash-alt"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <a class="btn btn-primary" href="/login" role="button" sec:authorize="isAnonymous()">s'identifier <i class="fas fas fa-user-check ml-2"></i></a>
+                <a class="btn btn-primary" href="/login" role="button" sec:authorize="isAnonymous()">s'identifier <i class="fas fa-user-check ml-2"></i></a>
                 <a class="mx-3 btn btn-primary" href="/formulairetopo" role="button" sec:authorize="hasAuthority('user')">Ajouter Topo <i class="far fa-plus-square ml-2"></i></a>
                 <BR>
 

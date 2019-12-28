@@ -3,6 +3,7 @@ package com.emmanuel.escalade.controleurs;
 import com.emmanuel.escalade.DAO.RegionRepository;
 import com.emmanuel.escalade.DAO.TopoRepository;
 import com.emmanuel.escalade.DAO.UtilisateurRepository;
+import com.emmanuel.escalade.Services.TopoService;
 import com.emmanuel.escalade.model.Topo;
 import com.emmanuel.escalade.model.Utilisateur;
 import org.slf4j.Logger;
@@ -27,8 +28,6 @@ public class TopoControleur {
 
     private static final Logger log = LoggerFactory.getLogger(TopoControleur.class);
 
-   // private static List<Topo> topos = new ArrayList<Topo>();
-
     @Autowired
     public TopoControleur(TopoRepository topoRepository, RegionRepository regionRepository, UtilisateurRepository utilisateurRepository) {
         this.topoRepository = topoRepository;
@@ -37,20 +36,18 @@ public class TopoControleur {
     }
 
     @GetMapping("/listetopos")
-    public String listeTopos(Model model) {
-        log.info("TopoControleur");
+    public String listeTopos(Principal principal, Model model) {
+        log.info("Liste de tous les topos");
         model.addAttribute("topos", topoRepository.findAll());
-        model.addAttribute("titreTopo", "Topos");
         return "listetopos";
     }
 
     @GetMapping("/listetopos/utilisateur")
     public String listeToposDunUtilisateur(Principal principal, Model model) {
-        log.info("Liste topos d'un utilisateur");
+        log.info("Liste des topos d'un utilisateur");
         List<Topo> topos = topoRepository.findByUtilisateurPseudo(principal.getName());
         model.addAttribute("topos", topos);
-        model.addAttribute("titreTopo", "Mes topos");
-        return "listetopos";
+        return "listemestopos";
     }
 
     @GetMapping("/formulairetopo")
@@ -66,10 +63,9 @@ public class TopoControleur {
         }
         Utilisateur utilisateur = utilisateurRepository.findByPseudo(principal.getName());
         topo.setUtilisateur(utilisateur);
-       // utilisateurRepository.save(utilisateur);
         topoRepository.save(topo);
         model.addAttribute("topos", topoRepository.findAll());
-        return "redirect:/listetopos";
+        return "redirect:/listetopos/utilisateur";
     }
 
     @GetMapping("/majtopo/{id}")
@@ -91,8 +87,9 @@ public class TopoControleur {
         }
         topo.setTopoId(id);
         topoRepository.save(topo);
+        //todo cette ligne est-elle nécessaire ?
         model.addAttribute("topos", topoRepository.findAll());
-        return "redirect:/listetopos";
+        return "redirect:/listetopos/utilisateur";
     }
 
     @GetMapping("/topo")
@@ -100,11 +97,20 @@ public class TopoControleur {
         return "topo";
     }
 
-
     @GetMapping("/supprimertopo/{id}")
     public String supprimerTopo(@PathVariable("id") Integer id, Model model){
         topoRepository.deleteById(id);
         model.addAttribute("topos", topoRepository.findAll());
+        return "redirect:/listetopos/utilisateur";
+    }
+
+    @GetMapping("/demanderemprunt/{id}")
+    public String DemanderEmpruntTopo(@PathVariable("id") Integer id, Principal principal, Model model) {
+        log.info("Demande d'emprunt par un utilisateur connecté. id=" + id + ".");
+        Topo topo = topoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Identifiant topo inconnu : " + id));
+        Utilisateur emprunteur = utilisateurRepository.findByPseudo(principal.getName());
+        topo.setEmprunteur(emprunteur);
+        topoRepository.save(topo);
         return "redirect:/listetopos";
     }
 

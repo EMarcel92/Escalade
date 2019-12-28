@@ -52,12 +52,9 @@ public class SiteRepositoryCustomImpl implements SiteRepositoryCustom {
             log.info("critère nbSecteurs=" + siteCriteres.getNbSecteurs());
             predicates.add(cb.equal(cb.size(root.get("secteurs")) , siteCriteres.getNbSecteurs()));
         }
-
         if (!predicates.isEmpty()) {
             criteriaQuery.where(predicates.toArray(new Predicate[0]));
         }
-
-        //log.error(">>>>>> Site search criteria: " + criteriaQuery.toString());
 
         return entityManager.createQuery(criteriaQuery).getResultList();
     }

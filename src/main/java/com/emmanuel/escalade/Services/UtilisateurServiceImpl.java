@@ -32,11 +32,8 @@ public class UtilisateurServiceImpl implements UtilisateurService{
     @Override
     public void save(Utilisateur utilisateur) {
         utilisateur.setMotDePasse(bCryptPasswordEncoder.encode(utilisateur.getMotDePasse()));
-
         Optional<Role> monRole = roleRepository.findById(2);
         utilisateur.setRoles(Arrays.asList(monRole.get()));
-
-
         utilisateurRepository.save(utilisateur);
     }
 

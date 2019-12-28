@@ -17,20 +17,26 @@ public class Topo {
     @ManyToOne
     @JoinColumn(name="regionid", nullable=false)
     private Region region;
+
     @ManyToOne
-    @JoinColumn(name="utilisateurid", nullable=false)  //la clé du parent est utilisateurid dans la table enfant (et pas dans l'entité enfant en Java)
+    @JoinColumn(name="utilisateurid", nullable=false)
+    //la clé du parent est utilisateurid dans la table enfant topo (et pas dans l'entité enfant en Java)
     private Utilisateur utilisateur;   //L'objet Utilisateur est le parent de topo
+    @ManyToOne
+    @JoinColumn(name="emprunteurid", nullable=true)
+    private Utilisateur emprunteur;
 
     public Topo() {
     }
 
-    public Topo(String nomTopo, String descriptionTopo, Date dateParution, boolean disponible, Region region, Utilisateur utilisateur) {
+    public Topo(String nomTopo, String descriptionTopo, Date dateParution, boolean disponible, Region region, Utilisateur utilisateur, Utilisateur emprunteur) {
         this.nomTopo = nomTopo;
         this.descriptionTopo = descriptionTopo;
         this.dateParution = dateParution;
         this.disponible = disponible;
         this.region = region;
         this.utilisateur = utilisateur;
+        this.emprunteur = emprunteur;
     }
 
     public Integer getTopoId() {  return topoId;    }
@@ -45,12 +51,12 @@ public class Topo {
         this.nomTopo = nomTopo;
     }
 
-    public String getDescritpionTopo() {
+    public String getDescriptionTopo() {
         return descriptionTopo;
     }
 
-    public void setDescritpionTopo(String descritpionTopo) {
-        this.descriptionTopo = descritpionTopo;
+    public void setDescriptionTopo(String descriptionTopo) {
+        this.descriptionTopo = descriptionTopo;
     }
 
     public Date getDateParution() {
@@ -82,4 +88,12 @@ public class Topo {
     }
 
     public void setUtilisateur(Utilisateur utilisateur) {this.utilisateur = utilisateur; }
+
+    public Utilisateur getEmprunteur() {
+        return emprunteur;
+    }
+
+    public void setEmprunteur(Utilisateur emprunteur) {
+        this.emprunteur = emprunteur;
+    }
 }
