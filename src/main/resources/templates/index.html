@@ -7,12 +7,12 @@
 <header th:insert="generique.html :: nav"></header>
 
 <div class="container">
-
+<!--    todo lignes à masquer-->
     <P sec:authorize="isAnonymous()">Utilisateur anonyme</P>
     <P sec:authorize="isAuthenticated()">Utilisateur authentifié</P>
     <P sec:authorize="hasAuthority('user')" >profil user</P>
     <P sec:authorize="hasAuthority('admin')" >profil admin</P>
-    <p th:text="'Nom : ' + ${#authentication.name}"> </p>
+    <p th:text="'Pseudo : ' + ${#authentication.name}"> </p>
 
     <div class="bd-example">
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
