@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 public interface TopoRepository extends JpaRepository<Topo, Integer> {
-    List<Topo> findByUtilisateurPseudo(String pseudo);
+    List<Topo> findByUtilisateurPseudoOrderByNomTopo(String pseudo);
+    List<Topo> findByUtilisateurPseudoNotOrderByNomTopo(String pseudo);
  //   List<Topo> findAllOrderByNomTopo();
 //    List<Topo> findByemprunteurNot(Utilisateur emprunteur);
 

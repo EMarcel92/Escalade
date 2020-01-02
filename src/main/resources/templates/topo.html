@@ -11,6 +11,7 @@
     <form action="#" th:action="@{/ajoutertopo}" th:object="${topo}" method="post">
         <label for="nomTopo">Nom</label>
         <input type="text" th:field="*{nomTopo}" id="nomTopo" placeholder="nomTopo">
+<!--        todo gestion des msg d'ano-->
         <!--<span th:if="${#fields.hasErrors('nomtopo')}" th:errors="*{nomTopo }"></span>-->
         <label for="descriptionTopo">Description</label>
         <input type="text" th:field="*{descriptionTopo}" id="descriptionTopo" placeholder="descriptionTopo">
@@ -19,12 +20,10 @@
         <input type="date" th:field="*{dateParution}" id="dateParution" placeholder="dateParution">
         <!--<span th:if="${#fields.hasErrors('dateParution')}" th:errors="*{dateParution}"></span>-->
         <label for="disponible">Disponibilité</label>
-        <input type="checkbox" th:field="*{disponible}" id="disponible" placeholder="disponible">
+        <input type="text" th:field="*{disponible}" id="disponible" placeholder="disponible">
 
         <input type="submit" value="Ajouter topo">
-
     </form>
-
 </div>
 
 <hr>

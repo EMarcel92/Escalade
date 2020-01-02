@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import sun.rmi.runtime.Log;
+
 import javax.validation.Valid;
 import java.io.Console;
 import java.security.Principal;
@@ -38,14 +40,17 @@ public class TopoControleur {
     @GetMapping("/listetopos")
     public String listeTopos(Principal principal, Model model) {
         log.info("Liste de tous les topos");
-        model.addAttribute("topos", topoRepository.findAll());
+        if (principal != null)
+            model.addAttribute("topos", topoRepository.findByUtilisateurPseudoNotOrderByNomTopo(principal.getName()));
+        else
+            model.addAttribute("topos", topoRepository.findAll());
         return "listetopos";
     }
 
     @GetMapping("/listetopos/utilisateur")
     public String listeToposDunUtilisateur(Principal principal, Model model) {
         log.info("Liste des topos d'un utilisateur");
-        List<Topo> topos = topoRepository.findByUtilisateurPseudo(principal.getName());
+        List<Topo> topos = topoRepository.findByUtilisateurPseudoOrderByNomTopo(principal.getName());
         model.addAttribute("topos", topos);
         return "listemestopos";
     }
@@ -104,14 +109,52 @@ public class TopoControleur {
         return "redirect:/listetopos/utilisateur";
     }
 
-    @GetMapping("/demanderemprunt/{id}")
-    public String DemanderEmpruntTopo(@PathVariable("id") Integer id, Principal principal, Model model) {
-        log.info("Demande d'emprunt par un utilisateur connecté. id=" + id + ".");
+    @GetMapping("/gererdemandeemprunt/{id}")
+    public String gererDemandeEmpruntTopo(@PathVariable("id") Integer id, Principal principal, Model model) {
+        log.info("Demande d'emprunt par un utilisateur connecté. id topo=" + id + ".");
         Topo topo = topoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Identifiant topo inconnu : " + id));
-        Utilisateur emprunteur = utilisateurRepository.findByPseudo(principal.getName());
-        topo.setEmprunteur(emprunteur);
+        log.info("Demande d'emprunt. Diponibilité=" + topo.getDisponible() + ", utilisateur connecté=" + principal.getName() + ".");
+        if (topo.getEmprunteur() != null){
+            log.info("emprunteur=" + topo.getEmprunteur().getPseudo() );
+        }
+        if (topo.getDisponible().equals("D") && topo.getEmprunteur() == null) {
+            log.info("Topage demande de réservation" );
+            Utilisateur emprunteur = utilisateurRepository.findByPseudo(principal.getName());
+            topo.setEmprunteur(emprunteur);
+            topo.setDisponible("R");
+        }
+        else {
+            if (topo.getDisponible().equals("R") && topo.getEmprunteur().getPseudo().equals(principal.getName())) {
+                log.info("Détaoppage résa");
+                Utilisateur emprunteur = utilisateurRepository.findByPseudo(principal.getName());
+                topo.setDisponible("D");
+                topo.setEmprunteur(null);
+            }
+            else{
+                log.info("Aucune condition remplie");
+            }
+        }
         topoRepository.save(topo);
         return "redirect:/listetopos";
+    }
+
+    @GetMapping("/accepterpret/{id}")
+    public String accepterPretTopo(@PathVariable("id") Integer id, Principal principal, Model model) {
+        log.info("Accepter la demande d'emprunt. id topo=" + id + ".");
+        Topo topo = topoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Identifiant topo inconnu pour acceptation prêt: " + id));
+        topo.setDisponible("I");
+        topoRepository.save(topo);
+        return "redirect:/listetopos/utilisateur";
+    }
+
+    @GetMapping("/refuserpret/{id}")
+    public String refuserPretTopo(@PathVariable("id") Integer id, Principal principal, Model model) {
+        log.info("Accepter la demande d'emprunt. id topo=" + id + ".");
+        Topo topo = topoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Identifiant topo inconnu pour refus de prêt: " + id));
+        topo.setDisponible("D");
+        topo.setEmprunteur(null);
+        topoRepository.save(topo);
+        return "redirect:/listetopos/utilisateur";
     }
 
 }

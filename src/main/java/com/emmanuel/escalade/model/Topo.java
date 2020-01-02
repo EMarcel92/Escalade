@@ -1,6 +1,11 @@
 package com.emmanuel.escalade.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 @Entity
@@ -10,12 +15,17 @@ public class Topo {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //génère une nouvelle valeur à chaque entité commitée
     @Column(name="topoid")  // indique le nom de la colonne correspondante dans la table
     private Integer topoId;
+    @NotBlank(message = "Nom de topo obligatoire")
     private String nomTopo;
+    @NotBlank(message = "Description obligatoire")
     private String descriptionTopo;
+    @NotNull(message = "Date du topo obligatoire")
     private Date dateParution;
-    private boolean disponible;
+    @NotNull(message = "Disponibilité obligatoire")
+    private String disponible;
     @ManyToOne
     @JoinColumn(name="regionid", nullable=false)
+    @NotNull(message = "Région obligatoire")
     private Region region;
 
     @ManyToOne
@@ -29,7 +39,7 @@ public class Topo {
     public Topo() {
     }
 
-    public Topo(String nomTopo, String descriptionTopo, Date dateParution, boolean disponible, Region region, Utilisateur utilisateur, Utilisateur emprunteur) {
+    public Topo(String nomTopo, String descriptionTopo, Date dateParution, String disponible, Region region, Utilisateur utilisateur, Utilisateur emprunteur) {
         this.nomTopo = nomTopo;
         this.descriptionTopo = descriptionTopo;
         this.dateParution = dateParution;
@@ -39,9 +49,13 @@ public class Topo {
         this.emprunteur = emprunteur;
     }
 
-    public Integer getTopoId() {  return topoId;    }
+    public Integer getTopoId() {
+        return topoId;
+    }
 
-    public void setTopoId(Integer topoId) { this.topoId = topoId; }
+    public void setTopoId(Integer topoId) {
+        this.topoId = topoId;
+    }
 
     public String getNomTopo() {
         return nomTopo;
@@ -67,11 +81,11 @@ public class Topo {
         this.dateParution = dateParution;
     }
 
-    public boolean isDisponible() {
+    public String getDisponible() {
         return disponible;
     }
 
-    public void setDisponible(boolean disponible) {
+    public void setDisponible(String disponible) {
         this.disponible = disponible;
     }
 
@@ -87,7 +101,9 @@ public class Topo {
         return utilisateur;
     }
 
-    public void setUtilisateur(Utilisateur utilisateur) {this.utilisateur = utilisateur; }
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
 
     public Utilisateur getEmprunteur() {
         return emprunteur;

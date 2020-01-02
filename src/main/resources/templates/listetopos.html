@@ -9,8 +9,7 @@
 
 <div class="container">
 
-    <h3 sec:authorize="isAuthenticated()" class="my-3 monTitre">Topos</h3>
-<!--    <h3 class="my-3 monTitre" th:text="${titreTopo}">Mes Topos ou tous les Topos)</h3>-->
+    <h3 class="my-3 monTitre">Topos</h3>
 
     <div class="container my-2">
         <div class="row">
@@ -25,8 +24,8 @@
                                 <th scope="col">Description</th>
                                 <th scope="col">Parution</th>
                                 <th scope="col">Région</th>
-                                <th scope="col">Membre</th>
-                                <th scope="col">disponible</th>
+                                <th scope="col">Propriétaire</th>
+                                <th scope="col">Disponible</th>
                                 <th scope="col"> </th>
                                 <th scope="col"> </th>
                             </tr>
@@ -38,11 +37,22 @@
                                 <td th:text="${topo.dateParution}"></td>  <!--<p th:utext="${#calendars.format(topo.dateParution, 'dd MM yyyy')}"></p>-->
                                 <td th:text="${topo.region.nomRegion}"></td>
                                 <td th:text="${topo.utilisateur.pseudo}"></td>
-                                <td th:class="${topo.disponible}? 'text-success' : 'text-danger'" th:utext="${topo.disponible}? 'Oui' : 'Non'"></td>
+                                <td th:class="(${topo.disponible} == 'D')? 'text-success' : 'text-danger'" th:utext="(${topo.disponible} == 'D')? 'Oui' : 'Non'"></td>
+
+
+
+                                <!--todo tester ${topo.emprunteur}? à la place de = null-->
                                 <td><a th:class="${topo.emprunteur == null}? 'btn btn-success' : 'btn btn-danger'"
-                                       th:href="@{/demanderemprunt/{id}(id=${topo.topoId})}"
+                                       th:href="@{/gererdemandeemprunt/{id}(id=${topo.topoId})}"
                                        th:title="${topo.emprunteur == null}? 'Demander l&acute;emprunt' : 'Annuler l&acute;emprunt'"
-                                       th:if="${topo.disponible}" sec:authorize="hasAuthority('user')"><i class="far fa-question-circle"></i></a></td>
+                                       sec:authorize="hasAuthority('user')"
+
+
+                                       th:if="${topo.emprunteur != null}? (${#authentication.name} == ${topo.emprunteur.pseudo} and ${topo.disponible} != 'I') : true"
+                                ><i class="far fa-question-circle"></i></a></td>
+
+
+
                             </tr>
                             </tbody>
                         </table>

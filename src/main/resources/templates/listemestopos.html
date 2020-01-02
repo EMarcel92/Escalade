@@ -23,8 +23,8 @@
                                 <th scope="col">Description</th>
                                 <th scope="col">Parution</th>
                                 <th scope="col">Région</th>
-                                <th scope="col">Membre</th>
-                                <th scope="col">disponible</th>
+                                <th scope="col">Propriétaire</th>
+                                <th scope="col">Disponible</th>
                                 <th scope="col">Emprunteur</th>
                                 <th scope="col"> </th>
                                 <th scope="col"> </th>
@@ -37,18 +37,55 @@
                                 <td th:text="${topo.dateParution}"></td>  <!--<p th:utext="${#calendars.format(topo.dateParution, 'dd MM yyyy')}"></p>-->
                                 <td th:text="${topo.region.nomRegion}"></td>
                                 <td th:text="${topo.utilisateur.pseudo}"></td>
-                                <td th:class="${topo.disponible}? 'text-success' : 'text-danger'" th:utext="${topo.disponible}? 'Oui' : 'Non'"></td>
+                                <td th:class="(${topo.disponible} == 'D')? 'text-success' : 'text-danger'" th:utext="(${topo.disponible} == 'D')? 'Oui' : 'Non'"></td>
 
 
 
+                                <th:block th:switch="${topo.disponible}">
+                                    <td th:case="R" th:utext="${topo.emprunteur != null}? ${topo.emprunteur.pseudo} : ''"></td>
+                                    <td th:case="I"><a href="#" th:utext="${topo.emprunteur != null}? ${topo.emprunteur.pseudo} : ''" data-toggle="modal" th:attr="data-target='#adresseemprunteur' + ${topo.topoId}">2</a>
+                                        <div class="modal fade" th:attr="id='adresseemprunteur' + ${topo.topoId}" tabindex="-1" role="dialog" aria-labelledby="titreAdresseEmprunteur" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="titreAdresseEmprunteur">Coordonnées emprunteur</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <P>Pseudo : </P>
+                                                        <strong th:utext="${topo.emprunteur != null}? ${topo.emprunteur.pseudo} : ''">Jeannot</strong>
+                                                        <P>Prénom : </P>
+                                                        <strong th:utext="${topo.emprunteur != null}? ${topo.emprunteur.prenomUtilisateur} : ''">Jean</strong>
+                                                        <P>Nom : </P>
+                                                        <strong th:utext="${topo.emprunteur != null}? ${topo.emprunteur.nomUtilisateur} : ''">Martin</strong>
+                                                        <P>Email : </P>
+                                                        <strong th:utext="${topo.emprunteur != null}? ${topo.emprunteur.email} : ''">jean.martin@axa.fr</strong>
+                                                    </div> <!--modal-body-->
+                                                    <div class="modal-footer">
+<!--                                                        todo faire un bouton mailto-->
+<!--                                                        <a type="button" th:href="#" class="btn btn-primary" sec:authorize="hasAuthority('user')">Contacter</a>-->
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td th:case="*" th:utext="${topo.emprunteur != null}? ${topo.emprunteur.pseudo} : ''"></td>
+                                </th:block>
 
-                                <td th:utext="${topo.emprunteur != null}? ${topo.emprunteur.pseudo} : ''"></td>
+
 
 
 
 
                                 <td><a class="btn btn-primary" th:href="@{/majtopo/{id}(id=${topo.topoId})}" sec:authorize="hasAuthority('user')"><i class="fas fa-pencil-alt "></i></a></td>
                                 <td><a class="btn btn-primary" th:href="@{/supprimertopo/{id}(id=${topo.topoId})}" sec:authorize="hasAuthority('user')"><i class="far fa-trash-alt"></i></a></td>
+                                <td><a class="btn btn-success" th:href="@{/accepterpret/{id}(id=${topo.topoId})}" sec:authorize="hasAuthority('user')"
+                                       th:if="${topo.disponible == 'R'}" title="Accepter le prêt"><i class=" far fa-thumbs-up"></i></a></td>
+                                <td><a class="btn btn-danger" th:href="@{/refuserpret/{id}(id=${topo.topoId})}" sec:authorize="hasAuthority('user')"
+                                       th:if="${topo.disponible == 'R'}" title="Refuser le prêt"><i class=" far fa-thumbs-down"></i></a></td>
                             </tr>
                             </tbody>
                         </table>

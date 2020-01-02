@@ -42,7 +42,7 @@ public class SiteControleur {
         this.commentaireRepository = commentaireRepository;
     }
 
-  //  @RequestMapping(value = {"/listesites" }, method = RequestMethod.GET)
+    //  @RequestMapping(value = {"/listesites" }, method = RequestMethod.GET)
     @GetMapping("/listesites")
     public String listeSites(Model model) {
         log.info("SiteControleur");

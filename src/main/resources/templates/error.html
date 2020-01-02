@@ -8,12 +8,9 @@
 
 <div class="container-fluid">
     <H3 class="monTitre">Page d'ERREUR</H3>
-    <h4 th:text="${errorCode}"></h4>
-    <p th:utext="${errorMessage}"></p>
-
     <h2 th:text="${status + ' ' + error}"></h2>
 
-<!--    <table class="table table-striped">-->
+    <table class="table table-striped w-75">
         <tr>
             <td>Date</td>
             <td th:text="${timestamp}"/>
@@ -44,13 +41,11 @@
                 <pre th:text="${trace}"/>
             </td>
         </tr>
-<!--    </table>-->
+    </table>
 
     <a href="/" th:href="@{/signup}">Retour à la page d'authentification</a>
 
 </div>
-
-<hr />
 
 <footer th:replace="generique :: footer"></footer>
 

@@ -69,7 +69,7 @@
                                             <td th:case=0>
                                                 <a th:href="@{/ajouterlongueur/{voieid}(voieid=${voie.voieid})}" class="far fa-plus-square" title="Ajouter une longueur" sec:authorize="hasAuthority('user')"></a>
                                             </td>
-                                            <td th:case="*"     ><a href="#" th:text="${#lists.size(voie.longueurs)}" data-toggle="modal" th:attr="data-target='#listelongueurs' + ${voie.voieid}">2</a>
+                                            <td th:case="*"><a href="#" th:text="${#lists.size(voie.longueurs)}" data-toggle="modal" th:attr="data-target='#listelongueurs' + ${voie.voieid}">2</a>
                                             <div class="modal fade" th:attr="id='listelongueurs' + ${voie.voieid}" tabindex="-1" role="dialog" aria-labelledby="TitreModaleLongueurs" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">

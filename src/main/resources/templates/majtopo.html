@@ -19,13 +19,20 @@
             <input type="date" th:field="*{dateParution}" id="dateParution" placeholder="dateParution">
             <span class="text-danger" th:if="${#fields.hasErrors('dateParution')}" th:errors="*{dateParution}"></span>
             <label for="disponible">Disponibilité</label>
-            <input type="checkbox" th:field="*{disponible}" id="disponible" placeholder="disponible">
+            <select th:field="*{disponible}" id="disponible" placeholder="disponibilité">
+                <option value="D">Disponible</option>
+                <option value="I">Indisponible</option>
+                <option value="R">Réservation démandée</option>
+            </select>
+            <span class="text-danger" th:if="${#fields.hasErrors('disponible')}" th:errors="*{disponible}"></span>
+
             <label for="region">Région</label>
             <select th:field="*{region}" id="region">
                 <option th:each="region : ${regions}" th:value="${region.regionId}" th:text="${region.nomRegion}")>Alpes </option>
             </select>
-            <label for="utilisateur">Utilisateur</label>
-            <input type="text" th:field="*{utilisateur}" id="utilisateur" placeholder="pseudo" th:value="*{utilisateur.pseudo}">
+            <span class="text-danger" th:if="${#fields.hasErrors('region')}" th:errors="*{region}"></span>
+
+            <input type="hidden" th:field="*{utilisateur}" id="utilisateur" th:value="*{utilisateur.pseudo}">
 
             <input type="submit" value="Valider">
        <!-- </div>-->

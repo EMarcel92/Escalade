@@ -9,31 +9,28 @@
 <div class="container">
     <H3 class="monTitre">Ajouter un topo</H3>
         <form action="#" th:action="@{/ajoutertopo}" th:object="${topo}" method="post">
-<!--            <form:errors path = "*" cssClass = "errorblock" element = "div" />-->
             <div  class="form-group row">
                 <label for="nomTopo" class="col-sm-2 col-form-label">Nom</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{nomTopo}" id="nomTopo" placeholder="nom du Topo">
-                    <span th:if="${#fields.hasErrors('nomTopo')}" th:errors="*{nomTopo }"></span>
+                    <input type="text" th:field="*{nomTopo}" id="nomTopo" placeholder="nom du Topo"/>
+                    <span class="text-danger" th:if="${#fields.hasErrors('nomTopo')}" th:errors="*{nomTopo}"></span>
                 </div>
             </div>
             <div  class="form-group row">
                 <label for="descriptionTopo" class="col-sm-2 col-form-label">Description</label>
-                <!--<input type="text" th:field="*{descriptionTopo}" id="descriptionTopo" placeholder="descriptionTopo">-->
                 <div class="col-sm-10">
                     <textarea th:field="*{descriptionTopo}" class="form-control" id="descriptionTopo"
                                                         placeholder="description" rows="3"></textarea>
-                    <span th:if="${#fields.hasErrors('descriptionTopo')}" th:errors="*{descriptionTopo}"></span>
+                    <span class="text-danger" th:if="${#fields.hasErrors('descriptionTopo')}" th:errors="*{descriptionTopo}"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="region" class="col-sm-2 col-form-label">Région</label>
                 <div class="col-sm-6 col-lg-3">
-                    <select th:field="*{region}" class="form-control" id="region">
-                        <option th:each="region : ${regions}" th:value="${region.regionId}" th:text="${region.nomRegion}" )>
-                        Alpes
-                        </option>
+                    <select th:field="*{region}" id="region">
+                        <option th:each="region : ${regions}" th:value="${region.regionId}" th:text="${region.nomRegion}")>Alpes </option>
                     </select>
+                    <span class="text-danger" th:if="${#fields.hasErrors('region')}" th:errors="*{region}"></span>
                 </div>
             </div>
             <div  class="form-group row">
@@ -44,24 +41,21 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-sm-3">
-                    <label for="disponible" class="form-check-label">Disponibilité</label>
-                </div>
-                <div class="col-sm-3">
-                    <input type="checkbox" class="form-check-input" th:field="*{disponible}" id="disponible"
-                       placeholder="disponible">
+                <label for="disponible" class="col-sm-2 col-form-label">Disponibilité</label>
+                <div class="col-sm-2">
+                    <select th:field="*{disponible}" id="disponible" placeholder="disponible">
+                        <option value="D">Disponible</option>
+                        <option value="I">Indisponible</option>
+                        <option value="R">Réservation démandée</option>
+                    </select>
+                    <span class="text-danger" th:if="${#fields.hasErrors('disponible')}" th:errors="*{disponible}"></span>
                 </div>
             </div>
-
-            <!--        todo supprimer la ligne suivante et tester MAJTopo-->
-            <input type="hidden" th:field="*{utilisateur.utilisateurId}" th:value="2" name="idUtilisateur"/>
-            <div class="text-danger" th:if="${#fields.hasErrors('*')}">errors</div>
+            <div class="text-danger" th:if="${#fields.hasErrors('*')}">Il y a des erreurs dans ce formulaire</div>
 
             <input type="submit" value="Valider">
         </form>
 </div>
-
-<hr>
 
 <footer th:replace="generique :: footer"></footer>
 
