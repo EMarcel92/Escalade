@@ -5,6 +5,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+/**
+ * Subdivision d'un site d'escalade, regroupant des voies.
+ */
 @Entity
 @Table(name = "secteur")
 public class Secteur {
@@ -14,7 +17,7 @@ public class Secteur {
     @Column(name = "secteurid")
     private Integer secteurid;
     @NotBlank(message = "Nom de secteur obligatoire")
-    @Size(min = 3, max = 10)
+    @Size(min = 3, max = 50)
     private String nomSecteur;
     @ManyToOne
     @JoinColumn(name="siteid", nullable=false)

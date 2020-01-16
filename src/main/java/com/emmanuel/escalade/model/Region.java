@@ -3,6 +3,10 @@ package com.emmanuel.escalade.model;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Zone géographique dans laquelle on trouve les sites d'escalade
+ * et à laquelle peuvent être rattachés des topos
+ */
 @Entity
 @Table(name = "region")
 public class Region {

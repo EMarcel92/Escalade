@@ -11,7 +11,7 @@
     <form action="#" th:action="@{/ajoutersecteur/{siteid}(siteid=${siteid})}" th:object="${secteur}" method="post">
         <div class="form-group">
             <label for="nomSecteur">Nom</label>
-            <input type="text" th:field="*{nomSecteur}" placeholder="Nom du secteur">
+            <input type="text" th:field="*{nomSecteur}" id="nomSecteur" placeholder="Nom du secteur">
             <span class="text-danger" th:if="${#fields.hasErrors('nomSecteur')}" th:errors="*{nomSecteur}"></span>
             <input type="hidden" th:value="${siteid}" name="siteid"/>
         </div>

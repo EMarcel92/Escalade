@@ -2,6 +2,9 @@ package com.emmanuel.escalade.DTO;
 
 import java.io.Serializable;
 
+/**
+ * DTO pour un site à utiliser pour récupérer les données essentielles d'un site, sans les entités liées (secteurs...)
+ */
 public class SiteDto implements Serializable {
  //   private Integer siteid;
     private String nomSite;

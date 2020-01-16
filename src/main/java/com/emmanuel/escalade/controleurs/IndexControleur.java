@@ -13,16 +13,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Gestion de la page d'accueil
+ */
 @Controller
 public class IndexControleur {
 
     private static final Logger log = LoggerFactory.getLogger(IndexControleur.class);
 
+    /**
+     * Affiche la page d'accueil
+     * @param model
+     * @return la page d'accueil HTML index
+     */
     @GetMapping("/")
     // @ReturnBody renvoie directement la réponse (texte, variable, objet) et pas une page HTML
     public String accueil (Model model) {
        // log.info("Ceci est un message pour la log");
-        model.addAttribute("message2", "rien");
+       // model.addAttribute("message2", "rien");
         return "index";    //page HTML index.html
     }
 

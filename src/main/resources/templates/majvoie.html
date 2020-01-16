@@ -17,7 +17,7 @@
             <input type="text" th:field="*{cotationVoie}">
             <span class="text-danger" th:errors="*{cotationVoie}" th:if="${#fields.hasErrors('cotationVoie')}"></span>
             <label for="nbPointsVoie">Nom</label>
-            <input type="text" th:field="*{nbPointsVoie}">
+            <input type="number" th:field="*{nbPointsVoie}">
             <span class="text-danger" th:errors="*{nbPointsVoie}" th:if="${#fields.hasErrors('nbPointsVoie')}"></span>
             <input type="hidden" th:field="*{secteur.secteurid}" name="secteurid"/>
         </div>

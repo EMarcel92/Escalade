@@ -5,6 +5,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 
+/**
+ * Profil auquel est rattaché un utilisateur, pouvant lui octroyer des droits.
+ * Un utilisteur peut avoir plusieurs rôles.
+ */
 @Entity
 @Table(name = "role")
 public class Role {

@@ -7,6 +7,9 @@ import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Utilisateur du site web de l'association caractérisé par un pseudo unique servant à son authentification
+ */
 @Entity
 @Table(name="utilisateur")
 public class Utilisateur {

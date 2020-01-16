@@ -5,6 +5,10 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * La longueur est une subdivision d'une voie d'escalade, plus petit élément escaladable.
+ * Elle possède les même attributs qu'une voie.
+ */
 @Entity
 @Table(name = "longueur")
 public class Longueur {

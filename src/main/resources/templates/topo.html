@@ -11,14 +11,13 @@
     <form action="#" th:action="@{/ajoutertopo}" th:object="${topo}" method="post">
         <label for="nomTopo">Nom</label>
         <input type="text" th:field="*{nomTopo}" id="nomTopo" placeholder="nomTopo">
-<!--        todo gestion des msg d'ano-->
-        <!--<span th:if="${#fields.hasErrors('nomtopo')}" th:errors="*{nomTopo }"></span>-->
+        <span th:if="${#fields.hasErrors('nomtopo')}" th:errors="*{nomTopo }"></span>
         <label for="descriptionTopo">Description</label>
         <input type="text" th:field="*{descriptionTopo}" id="descriptionTopo" placeholder="descriptionTopo">
-        <!--<span th:if="${#fields.hasErrors('descriptionTopo')}" th:errors="*{descriptionTopo}"></span>-->
+        <span th:if="${#fields.hasErrors('descriptionTopo')}" th:errors="*{descriptionTopo}"></span>
         <label for="dateParution">Date parution</label>
         <input type="date" th:field="*{dateParution}" id="dateParution" placeholder="dateParution">
-        <!--<span th:if="${#fields.hasErrors('dateParution')}" th:errors="*{dateParution}"></span>-->
+        <span th:if="${#fields.hasErrors('dateParution')}" th:errors="*{dateParution}"></span>
         <label for="disponible">Disponibilité</label>
         <input type="text" th:field="*{disponible}" id="disponible" placeholder="disponible">
 

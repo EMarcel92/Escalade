@@ -8,6 +8,9 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+/**
+ * Validation des saisies lors de la déclaration/modification d'un utilisateur
+ */
 @Component
 public class UtilisateurValidator implements Validator {
 
@@ -23,6 +26,11 @@ public class UtilisateurValidator implements Validator {
         return Utilisateur.class.equals(aClass);
     }
 
+    /**
+     * Contrôle les données saisies pour gérer un utilisateur (taille des noms, mot de passe)
+     * @param o un objet utilisateur
+     * @param errors
+     */
     @Override
     public void validate(Object o, Errors errors){
         Utilisateur utilisateur = (Utilisateur)o;

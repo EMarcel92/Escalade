@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * Gestion d'un utilisateur par implémentation de Spring Security
+ */
 @Service
 public class UtilisateurServiceImpl implements UtilisateurService{
 
@@ -29,6 +32,10 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 
     private static final Logger log = LoggerFactory.getLogger(UtilisateurServiceImpl.class);
 
+    /**
+     * Crée un utilisteur en base avec un rôle "user" (utilisateur standard)
+     * @param utilisateur Entité Utilisateur
+     */
     @Override
     public void save(Utilisateur utilisateur) {
         utilisateur.setMotDePasse(bCryptPasswordEncoder.encode(utilisateur.getMotDePasse()));
@@ -37,6 +44,11 @@ public class UtilisateurServiceImpl implements UtilisateurService{
         utilisateurRepository.save(utilisateur);
     }
 
+    /**
+     * Recherche d'un utilisateur par son pseudo
+     * @param pseudo pseudo de l'uitilisateur
+     * @return un utilisteur
+     */
     @Override
     public Utilisateur findByPseudo(String pseudo) {
         return utilisateurRepository.findByPseudo(pseudo);

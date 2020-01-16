@@ -3,6 +3,9 @@ package com.emmanuel.escalade.model;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Site d'escalade, regroupant des secteurs
+ */
 @Entity
 @Table(name = "SITE")
 public class Site {
@@ -24,6 +27,7 @@ public class Site {
     @OneToMany (mappedBy = "site", cascade = CascadeType.ALL)
     private List<Secteur> secteurs;
     @OneToMany (mappedBy = "site", cascade = CascadeType.ALL)
+    @OrderBy("dateRedaction desc")
     private List<Commentaire> commentaires;
 
     public Site() {

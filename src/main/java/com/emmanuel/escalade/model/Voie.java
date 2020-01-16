@@ -1,8 +1,14 @@
 package com.emmanuel.escalade.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * Chemin à emprunter par le grimpeur.
+ * Subdivision d'un secteur d'escalade, pouvant elle-même être divisée en longueurs.
+ */
 @Entity
 @Table(name = "voie")
 public class Voie {
@@ -11,8 +17,10 @@ public class Voie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "voieid")
     private Integer voieid;
+    @NotBlank(message = "Nom de voie obligatoire")
     private String nomVoie;
     private String cotationVoie;
+    @NotNull(message = "Nombre de points obligatoire")
     private Integer nbPointsVoie;
     @ManyToOne
     @JoinColumn(name="secteurid", nullable=false)

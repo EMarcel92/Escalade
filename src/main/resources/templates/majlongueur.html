@@ -17,7 +17,7 @@
             <input type="text" th:field="*{cotationLongueur}">
             <span class="text-danger" th:errors="*{cotationLongueur}" th:if="${#fields.hasErrors('cotationLongueur')}"></span>
             <label for="nbPointsLongueur">Points</label>
-            <input type="text" th:field="*{nbPointsLongueur}">
+            <input type="number" th:field="*{nbPointsLongueur}">
             <span class="text-danger" th:errors="*{nbPointsLongueur}" th:if="${#fields.hasErrors('nbPointsLongueur')}"></span>
             <input type="hidden" th:field="*{voie.voieid}" name="voieid"/>
         </div>

@@ -1,5 +1,8 @@
 package com.emmanuel.escalade.DTO;
 
+/**
+ * Ensemble des critères de recherche de site d'escalade
+ */
 public class SiteCriteres {
 
     private String nomSite;

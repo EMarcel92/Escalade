@@ -39,8 +39,6 @@
                                 <td th:text="${topo.utilisateur.pseudo}"></td>
                                 <td th:class="(${topo.disponible} == 'D')? 'text-success' : 'text-danger'" th:utext="(${topo.disponible} == 'D')? 'Oui' : 'Non'"></td>
 
-
-
                                 <th:block th:switch="${topo.disponible}">
                                     <td th:case="R" th:utext="${topo.emprunteur != null}? ${topo.emprunteur.pseudo} : ''"></td>
                                     <td th:case="I"><a href="#" th:utext="${topo.emprunteur != null}? ${topo.emprunteur.pseudo} : ''" data-toggle="modal" th:attr="data-target='#adresseemprunteur' + ${topo.topoId}">2</a>
@@ -64,8 +62,6 @@
                                                         <strong th:utext="${topo.emprunteur != null}? ${topo.emprunteur.email} : ''">jean.martin@axa.fr</strong>
                                                     </div> <!--modal-body-->
                                                     <div class="modal-footer">
-<!--                                                        todo faire un bouton mailto-->
-<!--                                                        <a type="button" th:href="#" class="btn btn-primary" sec:authorize="hasAuthority('user')">Contacter</a>-->
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                                                     </div>
                                                 </div>
@@ -74,11 +70,6 @@
                                     </td>
                                     <td th:case="*" th:utext="${topo.emprunteur != null}? ${topo.emprunteur.pseudo} : ''"></td>
                                 </th:block>
-
-
-
-
-
 
                                 <td><a class="btn btn-primary" th:href="@{/majtopo/{id}(id=${topo.topoId})}" sec:authorize="hasAuthority('user')"><i class="fas fa-pencil-alt "></i></a></td>
                                 <td><a class="btn btn-primary" th:href="@{/supprimertopo/{id}(id=${topo.topoId})}" sec:authorize="hasAuthority('user')"><i class="far fa-trash-alt"></i></a></td>

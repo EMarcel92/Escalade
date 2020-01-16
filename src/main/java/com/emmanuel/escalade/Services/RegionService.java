@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Gestion des Régions
+ */
 @Service
 public class RegionService {
     private static final Logger log = LoggerFactory.getLogger(RegionService.class);
@@ -20,6 +23,10 @@ public class RegionService {
         this.regionRepository = regionRepository;
     }
 
+    /**
+     * Renvoie la liste exhaustive des régions stockées en base
+     * @return liste des régions
+     */
     public List<Region> findAll() {
         List<Region> maListe = regionRepository.findAll();
         return maListe;

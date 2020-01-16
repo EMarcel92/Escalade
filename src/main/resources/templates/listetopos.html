@@ -38,21 +38,12 @@
                                 <td th:text="${topo.region.nomRegion}"></td>
                                 <td th:text="${topo.utilisateur.pseudo}"></td>
                                 <td th:class="(${topo.disponible} == 'D')? 'text-success' : 'text-danger'" th:utext="(${topo.disponible} == 'D')? 'Oui' : 'Non'"></td>
-
-
-
-                                <!--todo tester ${topo.emprunteur}? à la place de = null-->
                                 <td><a th:class="${topo.emprunteur == null}? 'btn btn-success' : 'btn btn-danger'"
                                        th:href="@{/gererdemandeemprunt/{id}(id=${topo.topoId})}"
                                        th:title="${topo.emprunteur == null}? 'Demander l&acute;emprunt' : 'Annuler l&acute;emprunt'"
                                        sec:authorize="hasAuthority('user')"
-
-
                                        th:if="${topo.emprunteur != null}? (${#authentication.name} == ${topo.emprunteur.pseudo} and ${topo.disponible} != 'I') : true"
                                 ><i class="far fa-question-circle"></i></a></td>
-
-
-
                             </tr>
                             </tbody>
                         </table>

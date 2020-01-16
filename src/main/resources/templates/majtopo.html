@@ -16,7 +16,7 @@
             <input type="text" th:field="*{descriptionTopo}" id="descriptionTopo" placeholder="descriptionTopo">
             <span class="text-danger" th:if="${#fields.hasErrors('descriptionTopo')}" th:errors="*{descriptionTopo}"></span>
             <label for="dateParution">Date parution</label>
-            <input type="date" th:field="*{dateParution}" id="dateParution" placeholder="dateParution">
+            <input required type="date" th:field="*{dateParution}" id="dateParution" placeholder="dateParution">
             <span class="text-danger" th:if="${#fields.hasErrors('dateParution')}" th:errors="*{dateParution}"></span>
             <label for="disponible">Disponibilité</label>
             <select th:field="*{disponible}" id="disponible" placeholder="disponibilité">

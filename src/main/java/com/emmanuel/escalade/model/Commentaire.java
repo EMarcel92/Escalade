@@ -8,6 +8,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
+/**
+ * Commentaires sur les sites apportés par les utilisteurs
+ */
 @Entity
 @Table(name = "commentaire")
 public class Commentaire {
@@ -16,9 +19,8 @@ public class Commentaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="commentaireid")
     private int commentaireId;
-   // @NotNull
- //   @NotBlank
-    @Size(min =1 , max = 250)
+    @NotBlank(message = "Commentaire vide !")
+    @Size(min =1 , max = 250, message = "Saisir 1 à 250 caractères")
     private String texteCommentaire;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime dateRedaction;

@@ -8,6 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
+/**
+ * Recueil d'informations sur un ou plusieurs sites d'escalade
+ */
 @Entity
 @Table(name = "topo")
 public class Topo {
@@ -19,7 +22,6 @@ public class Topo {
     private String nomTopo;
     @NotBlank(message = "Description obligatoire")
     private String descriptionTopo;
-    @NotNull(message = "Date du topo obligatoire")
     private Date dateParution;
     @NotNull(message = "Disponibilité obligatoire")
     private String disponible;
